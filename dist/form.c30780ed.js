@@ -314,54 +314,7 @@ var Form = function Form(typeOfForm, visit, id, data) {
 };
 
 exports.default = Form;
-},{"./classes.js":"src/js/classes.js","./request.js":"src/js/request.js"}],"src/js/modal.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _form = _interopRequireDefault(require("./form.js"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var Modal = function Modal(typeOfModal, visit, data, id) {
-  _classCallCheck(this, Modal);
-
-  this.modalContainer = document.createElement("div");
-  this.modalContainer.classList.add("fv");
-  this.modalBody = document.createElement("div");
-  this.modalBody.classList.add("fev");
-  this.modalContainer.append(this.modalBody);
-  this.modalContent = document.createElement("div");
-  this.modalContent.classList.add("ftr");
-  this.modalBody.append(this.modalContent);
-
-  if (typeOfModal === "login") {
-    this.loginForm = new _form.default("login");
-    this.modalContent.append(this.loginForm);
-  }
-
-  document.body.prepend(this.modalContainer);
-  this.modalContainer.classList.add("active");
-};
-
-exports.default = Modal;
-},{"./form.js":"src/js/form.js"}],"src/js/main.js":[function(require,module,exports) {
-"use strict";
-
-var _modal = _interopRequireDefault(require("./modal.js"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var signInBtn = document.querySelector('.sign-in-btn');
-signInBtn.addEventListener('click', function () {
-  return new _modal.default("login");
-});
-},{"./modal.js":"src/js/modal.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./classes.js":"src/js/classes.js","./request.js":"src/js/request.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -565,5 +518,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["node_modules/parcel-bundler/src/builtins/hmr-runtime.js","src/js/main.js"], null)
-//# sourceMappingURL=/main.c48f6146.js.map
+},{}]},{},["node_modules/parcel-bundler/src/builtins/hmr-runtime.js","src/js/form.js"], null)
+//# sourceMappingURL=/form.c30780ed.js.map

@@ -7,6 +7,25 @@
     <link rel="stylesheet" href="./src/css/main.scss">
 </head>
 <body>
+    <header class="header">
+        <a href="#" onclick="return false" class="header__logo-link">
+            <img class ="header__logo" src="" alt="logo">
+        </a>
+        <button class="sign-in-btn">SIGN IN</button>
+        <!-- <button class="create-visit-btn">CREATE VISIT</button> -->
+    </header>
+    <main>
+        <section class="filter">
+            <div class="filter__container"></div>
+        </section>
+        <section class="visits">
+            <div class="no-visits-notice">No items have been added yet.</div>
+        </section>
+    </main>
+    <script src="./src/js/classes.js" type="module"></script>
+    <script src="./src/js/form.js" type="module"></script>
+    <script src="./src/js/modal.js" type="module"></script>
+
     <script src="./src/js/main.js" type="module"></script>
 </body>
 </html>

@@ -350,18 +350,7 @@ var Modal = function Modal(typeOfModal, visit, data, id) {
 };
 
 exports.default = Modal;
-},{"./form.js":"src/js/form.js"}],"src/js/main.js":[function(require,module,exports) {
-"use strict";
-
-var _modal = _interopRequireDefault(require("./modal.js"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var signInBtn = document.querySelector('.sign-in-btn');
-signInBtn.addEventListener('click', function () {
-  return new _modal.default("login");
-});
-},{"./modal.js":"src/js/modal.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./form.js":"src/js/form.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -565,5 +554,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["node_modules/parcel-bundler/src/builtins/hmr-runtime.js","src/js/main.js"], null)
-//# sourceMappingURL=/main.c48f6146.js.map
+},{}]},{},["node_modules/parcel-bundler/src/builtins/hmr-runtime.js","src/js/modal.js"], null)
+//# sourceMappingURL=/modal.6185cb10.js.map
