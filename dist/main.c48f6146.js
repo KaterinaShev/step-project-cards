@@ -156,7 +156,7 @@ var Button = function Button(typeOfButton) {
   this.e = document.createElement("button");
 
   if (typeOfButton === "login") {
-    this.e.classList = "login-btn";
+    this.e.classList = "login-btn btn btn-primary";
     this.e.setAttribute("type", "submit");
     this.e.innerText = "Войти";
     return this.e;
@@ -175,6 +175,12 @@ var Button = function Button(typeOfButton) {
     this.e.innerText = "Редактировать";
     return this.e;
   }
+
+  if (typeOfButton === "signIn") {
+    this.e.classList = "btn_sign_in";
+    this.e.innerHTML = "Sign in";
+    return this.e;
+  }
 };
 
 exports.Button = Button;
@@ -187,6 +193,7 @@ var Input = function Input(typeOfInput) {
   if (typeOfInput === "email") {
     this.e.setAttribute('type', 'text');
     this.e.setAttribute('name', 'email');
+    this.e.setAttribute('id', 'email');
     this.e.classList = 'email-input';
     this.e.setAttribute("required", "required");
     this.inputLabel = document.createElement("label");
@@ -199,6 +206,7 @@ var Input = function Input(typeOfInput) {
   if (typeOfInput === "password") {
     this.e.setAttribute('type', 'password');
     this.e.setAttribute('name', 'password');
+    this.e.setAttribute('id', 'password');
     this.e.classList.add('password-input');
     this.e.setAttribute("required", "required");
     this.inputLabel = document.createElement("label");
@@ -236,12 +244,21 @@ var Request = /*#__PURE__*/function () {
   _createClass(Request, [{
     key: "login",
     value: function login(data) {
-      return fetch('http://cards.danit.com.ua/login', {
+      return fetch('https://ajax.test-danit.com/api/v2/cards/login', {
         method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json"
         },
-        body: JSON.stringify(data)
+        body: JSON.stringify(data) // body: 
+        // JSON.stringify({
+        //     email: document.querySelector("#email").value,
+        //     password: document.querySelector("#password").value,
+        //   }) 
+
+      }).then(function (response) {
+        return response.text();
+      }).then(function (token) {
+        return console.log(token);
       });
     }
   }]);
@@ -284,16 +301,48 @@ var Form = function Form(typeOfForm, visit, id, data) {
     this.e.append(this.loginButton);
     this.errorNote = document.createElement("p");
     this.errorNote.className = "error-note";
-    this.errorNote.innerText = "Wrong e-mail or password.";
-    this.errorNote.style.visibility = 'hidden';
+    this.errorNote.innerText = "Wrong e-mail or password."; // this.errorNote.style.visibility = 'hidden';
+
     this.errorNote.style.opacity = "0";
     this.e.append(this.errorNote);
     this.e.addEventListener("submit", function (e) {
-      e.preventDefault();
+      e.preventDefault(); //     fetch('https://ajax.test-danit.com/api/v2/cards/login', {
+      //     method: "POST",
+      //     headers: {
+      //         "Content-Type": "application/json"
+      //     },
+      //     body: JSON.stringify(data)
+      //     // body: 
+      //     // JSON.stringify({
+      //     //     email: document.querySelector("#email").value,
+      //     //     password: document.querySelector("#password").value,
+      //     //   }) 
+      // })
+      // // .then(response => response.text())
+      // // .then(token => console.log(token))
+      // .then((response) => {
+      //     if (response.status !== 200) {
+      //         let errorNote = document.querySelector(".error-note");
+      //         errorNote.style.visibility = 'visible';
+      //         errorNote.style.opacity = "1";
+      //     } else {
+      //         createVisit.style.display = "block";
+      //         signIn.style.display = "none"
+      //       return response.text();
+      //     }
+      //   })
+      //   .then((data) => {
+      //     sessionStorage.setItem("token", data.token);
+      //   });
+
       var formData = new FormData(this);
       formData = Object.fromEntries(formData);
       new _request.default("login", formData, null).then(function (response) {
-        return response.json();
+        if (response.ok) {
+          return response.json();
+        }
+
+        throw new Error("Fail");
       }).then(function (data) {
         if (data.status === "Success") {
           sessionStorage.setItem("token", data.token);
@@ -324,6 +373,8 @@ exports.default = void 0;
 
 var _form = _interopRequireDefault(require("./form.js"));
 
+var _classes = require("./classes.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -332,17 +383,33 @@ var Modal = function Modal(typeOfModal, visit, data, id) {
   _classCallCheck(this, Modal);
 
   this.modalContainer = document.createElement("div");
-  this.modalContainer.classList.add("fv");
-  this.modalBody = document.createElement("div");
-  this.modalBody.classList.add("fev");
-  this.modalContainer.append(this.modalBody);
+  this.modalContainer.classList.add("modal-dialog");
+  this.modalContainer.tabinde = "-1";
   this.modalContent = document.createElement("div");
-  this.modalContent.classList.add("ftr");
-  this.modalBody.append(this.modalContent);
+  this.modalContent.classList.add("modal-content");
+  this.modalContainer.append(this.modalContent);
+  this.modalHeader = document.createElement("div");
+  this.modalHeader.classList.add("modal-header");
+  this.modalContent.append(this.modalHeader);
+  this.modalButtonClose = document.createElement("button");
+  this.modalButtonClose.classList.add("btn-close");
+  this.modalButtonClose.type = "button";
+  this.modalButtonClose.setAttribute("data-bs-dismiss", "modal");
+  this.modalButtonClose.setAttribute("aria-label", "Close");
+  this.modalHeader.append(this.modalButtonClose); // this.modalButtonClose.addEventListener("click", () => Modal.close())
+
+  this.modalBody = document.createElement("div");
+  this.modalBody.classList.add("modal-body");
+  this.modalContent.append(this.modalBody);
+  this.modalFooter = document.createElement("div");
+  this.modalFooter.classList.add("modal-footer");
+  this.modalContent.append(this.modalFooter);
 
   if (typeOfModal === "login") {
+    this.modalHeader.innerHTML = "Login";
     this.loginForm = new _form.default("login");
-    this.modalContent.append(this.loginForm);
+    this.modalBody.append(this.loginForm); // this.loginButton = new Button("login");
+    // this.modalFooter.append(this.loginButton);
   }
 
   document.body.prepend(this.modalContainer);
@@ -350,18 +417,100 @@ var Modal = function Modal(typeOfModal, visit, data, id) {
 };
 
 exports.default = Modal;
-},{"./form.js":"src/js/form.js"}],"src/js/main.js":[function(require,module,exports) {
+},{"./form.js":"src/js/form.js","./classes.js":"src/js/classes.js"}],"src/js/main.js":[function(require,module,exports) {
 "use strict";
 
 var _modal = _interopRequireDefault(require("./modal.js"));
 
+var _request = _interopRequireDefault(require("./request.js"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var signInBtn = document.querySelector('.sign-in-btn');
-signInBtn.addEventListener('click', function () {
-  return new _modal.default("login");
-});
-},{"./modal.js":"src/js/modal.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+// import Button from "./classes.js"
+function createContent() {
+  var header = document.createElement("header");
+  header.className = "header";
+  document.body.prepend(header);
+  var a = document.createElement("a");
+  a.className = "header__logo_link";
+  a.innerHTML = "CARDS";
+  a.href = "#";
+  header.append(a); // let signIn = new Button("signIn");
+  // header.append(signIn);
+
+  var signIn = document.createElement("button");
+  signIn.className = "sign-in-btn btn btn-primary";
+  signIn.innerHTML = "SIGN IN";
+  header.append(signIn);
+  var createVisit = document.createElement("button");
+  createVisit.className = "create-visit-btn btn btn-primary";
+  createVisit.style.display = "none";
+  createVisit.innerHTML = "CREATE VISIT";
+  header.append(createVisit);
+  var main = document.createElement("main");
+  header.after(main);
+  var sectionFilter = document.createElement("section");
+  sectionFilter.className = "filter";
+  main.append(sectionFilter);
+  var divFilter = document.createElement("div");
+  divFilter.className = "filter__container";
+  sectionFilter.append(divFilter);
+  var sectionVisits = document.createElement("section");
+  sectionVisits.className = "visits";
+  main.append(sectionVisits);
+  var divVisits = document.createElement("div");
+  divVisits.className = "no-visits-notice";
+  divVisits.innerHTML = "No items have been added yet.";
+  sectionVisits.append(divVisits);
+}
+
+createContent();
+
+window.onload = function () {
+  var token = sessionStorage.getItem('token'); // LiveSearch.filterHide();
+
+  var signIn = document.querySelector('.sign-in-btn');
+  signIn.addEventListener('click', function () {
+    return new _modal.default("login");
+  });
+  var createVisit = document.querySelector('.create-visit-btn'); // createVisitBtn.style.display = "none"
+  // createVisitBtn.addEventListener('click', () => new Modal("createVisit"));
+
+  if (token) {
+    createVisit.style.display = "block";
+    signIn.style.display = "none"; // new Promise((resolve, reject) => {
+    //     resolve(new Request("getAllVisits"));
+    // })
+    //     .then((data) => {
+    //         console.log(data);
+    //         if (data.length !== 0) {
+    //             Visit.renderAllVisits(data);
+    //             LiveSearch.filterShow();
+    //         }
+    //     })
+    //     .catch(error => console.error(error));
+  } else if (!token) {
+    signIn.style.display = 'inline-block';
+  }
+}; // if (token === "noid" || token == null) {
+//     signInBtn.style.display = 'inline-block';
+// } else  {
+//     createVisitBtn.style.display = "block";
+//     signInBtn.style.display = "none";
+//     new Promise((resolve, reject) => {
+//         resolve(new Request("getAllVisits"));
+//     })
+//         .then((data) => {
+//             console.log(data);
+//             if (data.length !== 0) {
+//                 Visit.renderAllVisits(data);
+//                 LiveSearch.filterShow();
+//             }
+//         })
+//         .catch(error => console.error(error));
+// }
+// }
+},{"./modal.js":"src/js/modal.js","./request.js":"src/js/request.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -389,7 +538,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64769" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49924" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

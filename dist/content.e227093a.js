@@ -117,101 +117,8 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"src/js/classes.js":[function(require,module,exports) {
-"use strict";
+})({"src/js/content.js":[function(require,module,exports) {
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.Input = exports.Button = exports.Textarea = void 0;
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var Textarea = function Textarea(typeOfTextarea) {
-  _classCallCheck(this, Textarea);
-
-  this.e = document.createElement("textarea");
-
-  if (typeOfTextarea === "shortDiscriptionsOfVisit") {
-    this.e.classList = "textarea";
-    this.e.setAttribute("name", "shortDiscriptionsOfVisit");
-    this.e.setAttribute("placeholder", "Краткое описание визита");
-    return this.e;
-  }
-
-  if (typeOfTextarea === "pastDiseases") {
-    this.e.classList = "textarea";
-    this.e.setAttribute("name", "pastDiseases");
-    this.e.setAttribute("placeholder", "Перенесенные заболевания сердечно-сосудистой системы");
-    this.e.setAttribute("required", "required");
-    return this.e;
-  }
-};
-
-exports.Textarea = Textarea;
-
-var Button = function Button(typeOfButton) {
-  _classCallCheck(this, Button);
-
-  this.e = document.createElement("button");
-
-  if (typeOfButton === "login") {
-    this.e.classList = "login-btn";
-    this.e.setAttribute("type", "submit");
-    this.e.innerText = "Войти";
-    return this.e;
-  }
-
-  if (typeOfButton === "createVisitModalBtn") {
-    this.e.classList.add = "create-visit-modal-btn";
-    this.e.setAttribute("type", "submit");
-    this.e.innerText = "Создать";
-    return this.e;
-  }
-
-  if (typeOfButton === "editVisitModalBtn") {
-    this.e.classList = "edit-visit-modal-btn";
-    this.e.setAttribute("type", "submit");
-    this.e.innerText = "Редактировать";
-    return this.e;
-  }
-};
-
-exports.Button = Button;
-
-var Input = function Input(typeOfInput) {
-  _classCallCheck(this, Input);
-
-  this.e = document.createElement('input');
-
-  if (typeOfInput === "email") {
-    this.e.setAttribute('type', 'text');
-    this.e.setAttribute('name', 'email');
-    this.e.setAttribute('id', 'email');
-    this.e.classList = 'email-input';
-    this.e.setAttribute("required", "required");
-    this.inputLabel = document.createElement("label");
-    this.inputLabel.classList = "input-label";
-    this.inputLabel.innerText = "E-mail";
-    this.inputLabel.append(this.e);
-    return this.inputLabel;
-  }
-
-  if (typeOfInput === "password") {
-    this.e.setAttribute('type', 'password');
-    this.e.setAttribute('name', 'password');
-    this.e.setAttribute('id', 'password');
-    this.e.classList.add('password-input');
-    this.e.setAttribute("required", "required");
-    this.inputLabel = document.createElement("label");
-    this.inputLabel.classList.add("input-label");
-    this.inputLabel.innerText = "Password";
-    this.inputLabel.append(this.e);
-    return this.inputLabel;
-  }
-};
-
-exports.Input = Input;
 },{}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -240,7 +147,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54265" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49924" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -416,5 +323,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["node_modules/parcel-bundler/src/builtins/hmr-runtime.js","src/js/classes.js"], null)
-//# sourceMappingURL=/classes.bf43ef76.js.map
+},{}]},{},["node_modules/parcel-bundler/src/builtins/hmr-runtime.js","src/js/content.js"], null)
+//# sourceMappingURL=/content.e227093a.js.map

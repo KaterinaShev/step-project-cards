@@ -1,5 +1,11 @@
+body {
+  max-width: 1600px;
+  position: relative;
+}
+
 .header {
   display: flex;
+  justify-content: space-between;
 }
 
 /*# sourceMappingURL=/main.0d3aeac4.css.map */

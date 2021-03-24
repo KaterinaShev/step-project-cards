@@ -22,7 +22,7 @@ export class Button {
         this.e = document.createElement("button");
 
         if (typeOfButton === "login") {
-            this.e.classList = "login-btn";
+            this.e.classList = "login-btn btn btn-primary";
             this.e.setAttribute("type", "submit");
             this.e.innerText = "Войти";
             
@@ -46,6 +46,13 @@ export class Button {
             return this.e;
         }
 
+        if (typeOfButton === "signIn") {
+
+            this.e.classList = "btn_sign_in"
+            this.e.innerHTML = "Sign in"
+
+            return this.e;
+        }
     }
 }
 
@@ -55,6 +62,7 @@ export  class Input {
         if (typeOfInput === "email") {
             this.e.setAttribute('type', 'text');
             this.e.setAttribute('name', 'email');
+            this.e.setAttribute('id', 'email');
             this.e.classList = 'email-input';
             this.e.setAttribute("required", "required");
             this.inputLabel = document.createElement("label");
@@ -67,6 +75,7 @@ export  class Input {
         if (typeOfInput === "password") {
             this.e.setAttribute('type', 'password');
             this.e.setAttribute('name', 'password');
+            this.e.setAttribute('id', 'password');
             this.e.classList.add('password-input');
             this.e.setAttribute("required", "required");
             this.inputLabel = document.createElement("label");

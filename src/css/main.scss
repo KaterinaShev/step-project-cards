@@ -1,3 +1,17 @@
+
+body {
+    max-width: 1600px;
+    position: relative;
+}
 .header {
     display: flex;
+    justify-content: space-between;
 }
+// .fv {
+//     background-color: gray;
+//     width: 250px;
+//     position: absolute;
+//     left: 50%;
+//     top: 50%;
+
+// }

@@ -187,6 +187,7 @@ var Input = function Input(typeOfInput) {
   if (typeOfInput === "email") {
     this.e.setAttribute('type', 'text');
     this.e.setAttribute('name', 'email');
+    this.e.setAttribute('id', 'email');
     this.e.classList = 'email-input';
     this.e.setAttribute("required", "required");
     this.inputLabel = document.createElement("label");
@@ -199,6 +200,7 @@ var Input = function Input(typeOfInput) {
   if (typeOfInput === "password") {
     this.e.setAttribute('type', 'password');
     this.e.setAttribute('name', 'password');
+    this.e.setAttribute('id', 'password');
     this.e.classList.add('password-input');
     this.e.setAttribute("required", "required");
     this.inputLabel = document.createElement("label");
@@ -236,12 +238,15 @@ var Request = /*#__PURE__*/function () {
   _createClass(Request, [{
     key: "login",
     value: function login(data) {
-      return fetch('http://cards.danit.com.ua/login', {
+      return fetch('https://ajax.test-danit.com/api/v2/cards/login', {
         method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json; charset=utf-8"
         },
-        body: JSON.stringify(data)
+        body: JSON.stringify({
+          email: document.querySelector("#email").value,
+          password: document.querySelector("#password").value
+        })
       });
     }
   }]);
@@ -378,7 +383,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64769" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54265" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

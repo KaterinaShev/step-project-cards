@@ -4,13 +4,26 @@ export default class Request {
             return this.login(data);
         }
     }
+
     login(data) {
-        return fetch('http://cards.danit.com.ua/login', {
+        return fetch('https://ajax.test-danit.com/api/v2/cards/login', {
             method: "POST",
             headers: {
-                'Content-Type': 'application/json'
+                "Content-Type": "application/json"
             },
             body: JSON.stringify(data)
-        });
+            
+            // body: 
+            // JSON.stringify({
+            //     email: document.querySelector("#email").value,
+            //     password: document.querySelector("#password").value,
+            //   }) 
+        })
+        .then(response => response.text())
+        .then(token => console.log(token))
     }
 }
+
+
+
+
