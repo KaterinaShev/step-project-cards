@@ -249,17 +249,10 @@ var Request = /*#__PURE__*/function () {
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify(data) // body: 
-        // JSON.stringify({
-        //     email: document.querySelector("#email").value,
-        //     password: document.querySelector("#password").value,
-        //   }) 
-
+        body: JSON.stringify(data)
       }).then(function (response) {
-        return response.text();
-      }).then(function (token) {
-        return console.log(token);
-      });
+        return response;
+      }); // .then(token => console.log(token))
     }
   }]);
 
@@ -301,55 +294,30 @@ var Form = function Form(typeOfForm, visit, id, data) {
     this.e.append(this.loginButton);
     this.errorNote = document.createElement("p");
     this.errorNote.className = "error-note";
-    this.errorNote.innerText = "Wrong e-mail or password."; // this.errorNote.style.visibility = 'hidden';
-
+    this.errorNote.innerText = "Wrong e-mail or password.";
+    this.errorNote.style.visibility = 'hidden';
     this.errorNote.style.opacity = "0";
     this.e.append(this.errorNote);
     this.e.addEventListener("submit", function (e) {
-      e.preventDefault(); //     fetch('https://ajax.test-danit.com/api/v2/cards/login', {
-      //     method: "POST",
-      //     headers: {
-      //         "Content-Type": "application/json"
-      //     },
-      //     body: JSON.stringify(data)
-      //     // body: 
-      //     // JSON.stringify({
-      //     //     email: document.querySelector("#email").value,
-      //     //     password: document.querySelector("#password").value,
-      //     //   }) 
-      // })
-      // // .then(response => response.text())
-      // // .then(token => console.log(token))
-      // .then((response) => {
-      //     if (response.status !== 200) {
-      //         let errorNote = document.querySelector(".error-note");
-      //         errorNote.style.visibility = 'visible';
-      //         errorNote.style.opacity = "1";
-      //     } else {
-      //         createVisit.style.display = "block";
-      //         signIn.style.display = "none"
-      //       return response.text();
-      //     }
-      //   })
-      //   .then((data) => {
-      //     sessionStorage.setItem("token", data.token);
-      //   });
-
+      e.preventDefault();
       var formData = new FormData(this);
       formData = Object.fromEntries(formData);
-      new _request.default("login", formData, null).then(function (response) {
-        if (response.ok) {
-          return response.json();
-        }
+      new _request.default("login", formData, null).then(function (data) {
+        console.log(data);
 
-        throw new Error("Fail");
-      }).then(function (data) {
-        if (data.status === "Success") {
-          sessionStorage.setItem("token", data.token);
-        } else if (data.status === "Error") {
+        if (!data.ok) {
           var errorNote = document.querySelector(".error-note");
           errorNote.style.visibility = 'visible';
           errorNote.style.opacity = "1";
+          throw new Error("Wrong email or password");
+        } else {
+          var signIn = document.querySelector('.sign-in-btn');
+          signIn.style.display = "none";
+          var createVisit = document.querySelector('.create-visit-btn');
+          createVisit.style.display = "block";
+          sessionStorage.setItem("token", data.token);
+          var modal = document.querySelector(".modal-dialog");
+          modal.remove();
         }
 
         return data;
@@ -396,8 +364,7 @@ var Modal = function Modal(typeOfModal, visit, data, id) {
   this.modalButtonClose.type = "button";
   this.modalButtonClose.setAttribute("data-bs-dismiss", "modal");
   this.modalButtonClose.setAttribute("aria-label", "Close");
-  this.modalHeader.append(this.modalButtonClose); // this.modalButtonClose.addEventListener("click", () => Modal.close())
-
+  this.modalHeader.append(this.modalButtonClose);
   this.modalBody = document.createElement("div");
   this.modalBody.classList.add("modal-body");
   this.modalContent.append(this.modalBody);
@@ -464,52 +431,13 @@ function createContent() {
   sectionVisits.append(divVisits);
 }
 
-createContent();
-
 window.onload = function () {
-  var token = sessionStorage.getItem('token'); // LiveSearch.filterHide();
-
+  createContent();
   var signIn = document.querySelector('.sign-in-btn');
   signIn.addEventListener('click', function () {
     return new _modal.default("login");
   });
-  var createVisit = document.querySelector('.create-visit-btn'); // createVisitBtn.style.display = "none"
-  // createVisitBtn.addEventListener('click', () => new Modal("createVisit"));
-
-  if (token) {
-    createVisit.style.display = "block";
-    signIn.style.display = "none"; // new Promise((resolve, reject) => {
-    //     resolve(new Request("getAllVisits"));
-    // })
-    //     .then((data) => {
-    //         console.log(data);
-    //         if (data.length !== 0) {
-    //             Visit.renderAllVisits(data);
-    //             LiveSearch.filterShow();
-    //         }
-    //     })
-    //     .catch(error => console.error(error));
-  } else if (!token) {
-    signIn.style.display = 'inline-block';
-  }
-}; // if (token === "noid" || token == null) {
-//     signInBtn.style.display = 'inline-block';
-// } else  {
-//     createVisitBtn.style.display = "block";
-//     signInBtn.style.display = "none";
-//     new Promise((resolve, reject) => {
-//         resolve(new Request("getAllVisits"));
-//     })
-//         .then((data) => {
-//             console.log(data);
-//             if (data.length !== 0) {
-//                 Visit.renderAllVisits(data);
-//                 LiveSearch.filterShow();
-//             }
-//         })
-//         .catch(error => console.error(error));
-// }
-// }
+};
 },{"./modal.js":"src/js/modal.js","./request.js":"src/js/request.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -538,7 +466,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49924" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49366" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

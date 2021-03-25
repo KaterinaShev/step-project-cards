@@ -12,15 +12,9 @@ export default class Request {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(data)
-            
-            // body: 
-            // JSON.stringify({
-            //     email: document.querySelector("#email").value,
-            //     password: document.querySelector("#password").value,
-            //   }) 
         })
-        .then(response => response.text())
-        .then(token => console.log(token))
+        .then(response => response)
+        // .then(token => console.log(token))
     }
 }
 

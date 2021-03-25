@@ -23,7 +23,7 @@ export default class Form {
             this.errorNote = document.createElement("p");
             this.errorNote.className = "error-note";
             this.errorNote.innerText = "Wrong e-mail or password.";
-            // this.errorNote.style.visibility = 'hidden';
+            this.errorNote.style.visibility = 'hidden';
             this.errorNote.style.opacity = "0";
             this.e.append(this.errorNote);
 
@@ -31,60 +31,29 @@ export default class Form {
             this.e.addEventListener("submit", function(e) {
                 e.preventDefault();
 
-            //     fetch('https://ajax.test-danit.com/api/v2/cards/login', {
-            //     method: "POST",
-            //     headers: {
-            //         "Content-Type": "application/json"
-            //     },
-            //     body: JSON.stringify(data)
-                
-            //     // body: 
-            //     // JSON.stringify({
-            //     //     email: document.querySelector("#email").value,
-            //     //     password: document.querySelector("#password").value,
-            //     //   }) 
-            // })
-            // // .then(response => response.text())
-            // // .then(token => console.log(token))
-            // .then((response) => {
-            //     if (response.status !== 200) {
-            //         let errorNote = document.querySelector(".error-note");
-            //         errorNote.style.visibility = 'visible';
-            //         errorNote.style.opacity = "1";
-            //     } else {
-            //         createVisit.style.display = "block";
-            //         signIn.style.display = "none"
-          
-            //       return response.text();
-            //     }
-            //   })
-            //   .then((data) => {
-            //     sessionStorage.setItem("token", data.token);
-            //   });
-
-
-
                 let formData = new FormData(this);
                 formData = Object.fromEntries(formData);
 
                 new Request ("login", formData, null)
 
-                    .then((response) => {
-                        if(response.ok) {
-                            return response.json();
-                        }
-                        throw new Error("Fail")
-                    })
                     .then((data) => {
-                        if (data.status === "Success") {
-                            sessionStorage.setItem("token", data.token);
-                        } else if (data.status === "Error") {
+                        console.log(data);
+                        if(!data.ok) {
                             let errorNote = document.querySelector(".error-note");
                             errorNote.style.visibility = 'visible';
                             errorNote.style.opacity = "1";
+                            throw new Error("Wrong email or password");
+                        } else {
+                            let signIn = document.querySelector('.sign-in-btn');
+                            signIn.style.display = "none";
+                            let createVisit = document.querySelector('.create-visit-btn');
+                            createVisit.style.display = "block";
+                            sessionStorage.setItem("token", data.token);
+                            let modal = document.querySelector(".modal-dialog");
+                            modal.remove();
                         }
                         return data;
-                    }) 
+                    })
                     .catch(error => console.error(error));
                     this.reset();
             })

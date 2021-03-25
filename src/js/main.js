@@ -45,66 +45,13 @@ function createContent() {
     const divVisits = document.createElement("div");
     divVisits.className = "no-visits-notice";
     divVisits.innerHTML = "No items have been added yet.";
-    sectionVisits.append(divVisits)
-    
+    sectionVisits.append(divVisits)  
 }
-createContent()
-
-
-
 
 window.onload = function () {
-    let token = sessionStorage.getItem('token');
-    // LiveSearch.filterHide();
-
+    createContent()
     let signIn = document.querySelector('.sign-in-btn');
     signIn.addEventListener('click', () => new Modal("login"));
 
-    let createVisit = document.querySelector('.create-visit-btn');
-    // createVisitBtn.style.display = "none"
-    // createVisitBtn.addEventListener('click', () => new Modal("createVisit"));
-
-    if (token) {
-        createVisit.style.display = "block";
-        signIn.style.display = "none"
-
-
-        // new Promise((resolve, reject) => {
-        //     resolve(new Request("getAllVisits"));
-        // })
-        //     .then((data) => {
-        //         console.log(data);
-        //         if (data.length !== 0) {
-        //             Visit.renderAllVisits(data);
-        //             LiveSearch.filterShow();
-        //         }
-        //     })
-        //     .catch(error => console.error(error));
-    } else if (!token) {
-        signIn.style.display = 'inline-block';
-    }
+    
 };
-
-
-    // if (token === "noid" || token == null) {
-    //     signInBtn.style.display = 'inline-block';
-    // } else  {
-        
-    //     createVisitBtn.style.display = "block";
-    //     signInBtn.style.display = "none";
-
-    //     new Promise((resolve, reject) => {
-    //         resolve(new Request("getAllVisits"));
-    //     })
-    //         .then((data) => {
-    //             console.log(data);
-    //             if (data.length !== 0) {
-    //                 Visit.renderAllVisits(data);
-    //                 LiveSearch.filterShow();
-    //             }
-    //         })
-    //         .catch(error => console.error(error));
-    // }
-
-
-// }

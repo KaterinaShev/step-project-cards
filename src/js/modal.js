@@ -21,7 +21,6 @@ export default class Modal {
         this.modalButtonClose.setAttribute("data-bs-dismiss", "modal");
         this.modalButtonClose.setAttribute("aria-label", "Close");
         this.modalHeader.append(this.modalButtonClose);
-        // this.modalButtonClose.addEventListener("click", () => Modal.close())
 
         this.modalBody = document.createElement("div");
         this.modalBody.classList.add("modal-body");
