@@ -15,31 +15,67 @@ export default class Modal {
         this.modalHeader.classList.add("modal-header");
         this.modalContent.append(this.modalHeader);
 
-        this.modalButtonClose = document.createElement("button");
+        this.modalButtonClose = document.createElement("span");
         this.modalButtonClose.classList.add("btn-close");
-        this.modalButtonClose.type = "button";
-        this.modalButtonClose.setAttribute("data-bs-dismiss", "modal");
-        this.modalButtonClose.setAttribute("aria-label", "Close");
         this.modalHeader.append(this.modalButtonClose);
 
         this.modalBody = document.createElement("div");
         this.modalBody.classList.add("modal-body");
         this.modalContent.append(this.modalBody);
 
-        this.modalFooter = document.createElement("div");
-        this.modalFooter.classList.add("modal-footer");
-        this.modalContent.append(this.modalFooter);
+        this.modalButtonClose = document.createElement("span");
+        this.modalButtonClose.classList.add("btn-close");
+        this.modalHeader.append(this.modalButtonClose);
+
+
+        this.removeModalBound = this.removeModal.bind(this);
+        this.modalButtonClose.addEventListener("click", this.removeModalBound);
+       
+
+        // this.onBackgroundClickBound = this.onBackgroundClick.bind(this);
+        // this.modalContainer.addEventListener("mousedown", this.onBackgroundClickBound);
+
         if (typeOfModal==="login") {
-            this.modalHeader.innerHTML = "Login";
+            this.titleHeader = document.createElement("h5");
+            this.modalHeader.append(this.titleHeader)
+            this.titleHeader.innerHTML = "Введите e-mail и пароль";
 
             this.loginForm = new Form("login");
             this.modalBody.append(this.loginForm);
-
-            // this.loginButton = new Button("login");
-            // this.modalFooter.append(this.loginButton);
         }
+
+        if (typeOfModal === "createVisit") {
+            this.titleHeader = document.createElement("h5");
+            this.modalHeader.append(this.titleHeader)
+            this.titleHeader.innerHTML = "Заполните данные о посещении";
+
+            this.createVisitForm = new Form("createVisit");
+            this.modalBody.append(this.createVisitForm);
+        }
+
+        if (typeOfModal === "editVisit") {
+            this.titleHeader = document.createElement("h5");
+            this.modalHeader.append(this.titleHeader)
+            this.titleHeader.innerHTML = "Измените информацию о визите";
+
+            this.editVisitForm = new Form("editVisit", visit, id, data);
+            this.modalBody.append(this.editVisitForm);
+        }
+
 
         document.body.prepend(this.modalContainer);
         this.modalContainer.classList.add("active")
+    }
+    // onBackgroundClick(evt) {
+    //     let clickedItem = evt.target;
+    //     if (clickedItem === this.modalContent) {
+    //         this.removeModal();
+    //         this.modalContainer.removeEventListener("click",this.onBackgroundClickBound);
+    //     }
+
+    // }
+    removeModal() {
+        this.modalContainer.remove();
+        this.modalButtonClose.removeEventListener("click", this.removeModalBound);
     }
 }

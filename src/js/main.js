@@ -1,6 +1,7 @@
 import Modal from "./modal.js";
 import Request from "./request.js"
-// import Button from "./classes.js"
+import Visit from "./visit.js";
+import Filter from "./filter.js";
 
 function createContent() {
     const header = document.createElement("header");
@@ -8,39 +9,40 @@ function createContent() {
     document.body.prepend(header);
 
     const a = document.createElement("a");
-    a.className = "header__logo_link";
+    a.className = "header-logo-link";
     a.innerHTML = "CARDS";
     a.href = "#"
     header.append(a);
 
-    // let signIn = new Button("signIn");
-    // header.append(signIn);
-
     const signIn = document.createElement("button");
     signIn.className = "sign-in-btn btn btn-primary";
-    signIn.innerHTML = "SIGN IN";
+    signIn.innerHTML = "Войти";
     header.append(signIn);
 
     const createVisit = document.createElement("button");
     createVisit.className = "create-visit-btn btn btn-primary"
     createVisit.style.display = "none";
-    createVisit.innerHTML = "CREATE VISIT";
+    createVisit.innerHTML = "Создать визит";
     header.append(createVisit);
 
     const main = document.createElement("main");
     header.after(main);
 
+    const mainContainer = document.createElement("div");
+    mainContainer.classList = "main-container"
+    main.append(mainContainer);
+
     const sectionFilter = document.createElement("section");
     sectionFilter.className = "filter";
-    main.append(sectionFilter);
+    mainContainer.append(sectionFilter);
 
     const divFilter = document.createElement("div");
-    divFilter.className = "filter__container";
+    divFilter.className = "filter-container";
     sectionFilter.append(divFilter);
 
     const sectionVisits = document.createElement("section");
     sectionVisits.className = "visits";
-    main.append(sectionVisits);
+    mainContainer.append(sectionVisits);
 
     const divVisits = document.createElement("div");
     divVisits.className = "no-visits-notice";
@@ -49,9 +51,31 @@ function createContent() {
 }
 
 window.onload = function () {
-    createContent()
-    let signIn = document.querySelector('.sign-in-btn');
-    signIn.addEventListener('click', () => new Modal("login"));
+    createContent();
+    Filter.filterHide();
+    let token = localStorage.getItem("token");
+    let signIn = document.querySelector(".sign-in-btn");
 
-    
+    signIn.addEventListener("click", () => new Modal("login"));
+
+    let createVisit = document.querySelector(".create-visit-btn");
+    createVisit.addEventListener("click", () => new Modal("createVisit"));
+
+    if (token) {
+        signIn.style.display = "none";
+        createVisit.style.display = "block";
+
+        new Promise((resolve, reject) => {
+            resolve(new Request("getAllVisits"));
+        })
+            .then((data) => {
+                console.log(data);
+                if (data.length !== 0) {
+                    Visit.renderAllVisits(data);
+                    Filter.filterShow();
+                }
+            })
+            .catch(error => console.error(error));
+
+    }  
 };
