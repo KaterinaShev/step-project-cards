@@ -1,71 +1,91 @@
 import Visit from "./visit.js";
 import Request from "./request.js";
+import {Input, Select} from "./classes.js";
+
 
 export default class Filter {
     constructor() {
-        this.searchContainer = document.querySelector(".filter-container");
-        this.getVisitsData();
-        this.createSearchInput();
-        this.createUrgencySelect();
+        this._searchContainer = document.querySelector(".filter-container");
+        this._getVisitsData();
+        this._createInput();
+        this._createSelectUrgency();
+        this._createSelectStatus();
 
     }
     static filterHide(){
-        let filter = document.querySelector('.filter');
-        filter.classList.add('hidden');
+        let filter = document.querySelector(".filter");
+        filter.classList.add("hidden");
     }
     static filterShow(){
-        let filter = document.querySelector('.filter');
-        filter.classList.remove('hidden');
+        let filter = document.querySelector(".filter");
+        filter.classList.remove("hidden");
         new Filter();
     }
-    createSearchInput() {
-        this.input = document.createElement('input');
-        this.input.classList.add('filter-live-search');
-        this.input.type = 'text';
-        this.input.placeholder = 'id, ФИО, доктор';
-        this.searchContainer.append(this.input);
+    _createInput() {
+        this._input = new Input("search");
+        this._searchContainer.append(this._input);
     }
 
-    createUrgencySelect() {
-        const urgency = ['All', 'Regular', 'Priority', 'Urgent'];
-        this.urgencySelect = document.createElement('select');
-        const urgencyTitle = document.createElement('span');
-        urgencyTitle.classList.add('filter_urgency-title');
-        urgencyTitle.innerText = 'Выберите срочность посещения:';
-        this.urgencySelect.classList.add('filter-select-urgency');
-        urgency.forEach(el => {
-            this.selectOption = document.createElement('option');
-            this.selectOption.text = el;
-            this.urgencySelect.options.add(this.selectOption);
+    _createSelectUrgency() {
+        const urgency = ["All", "Regular", "Priority", "Urgent"];
+        this._urgencySelect = new Select("searchUrgency");
+        const urgencyTitle = document.createElement("span");
+        urgencyTitle.classList.add("filter_urgency-title");
+        urgencyTitle.innerText = "Выберите срочность посещения:";
+
+        urgency.forEach(e => {
+            this._selectOption = document.createElement("option");
+            this._selectOption.text = e;
+            this._urgencySelect.options.add(this._selectOption);
         });
-        this.searchContainer.append(urgencyTitle);
-        this.searchContainer.append(this.urgencySelect);
 
+        this._searchContainer.append(urgencyTitle);
+        this._searchContainer.append(this._urgencySelect);
     }
 
-    getVisitsData() {
+    _createSelectStatus() {
+        const status = ["All", "Open", "Done"];
+        this._statusSelect = new Select("searchStatus");
+        const statusTitle = document.createElement("span");
+        statusTitle.classList.add("filter_urgency-title");
+        statusTitle.innerText = "Выберите статус заявки:";
+
+        status.forEach(e => {
+            this._selectOption = document.createElement("option");
+            this._selectOption.text = e;
+            this._statusSelect.options.add(this._selectOption);
+        });
+
+        this._searchContainer.append(statusTitle);
+        this._searchContainer.append(this._statusSelect);
+    }
+    
+
+    _getVisitsData() {
         new Promise((resolve, reject) => {
             resolve(new Request("getAllVisits"))
         })
             .then(data => {
-                this.filter(data);
-                this.filterByUrgency(data);
+                this._filter(data);
+                this._filterByUrgency(data);
+                this._filterByStatus(data);
             })
     }
 
-    filter(allVisits) {
-        this.input.addEventListener('input', function () {
+    _filter(allVisits) {
+        this._input.addEventListener("input", function () {
             let visitsArray = [];
-            let visitsContainer = document.querySelector(".visits");
-            visitsContainer.innerHTML = "No data found";
             let inputedValue = this.value.trim();
-            let inputedData = new RegExp(inputedValue, 'i');
-            if (inputedValue !== '') {
+            let inputedData = new RegExp(inputedValue, "i");
+
+            if (inputedValue !== "") {
                 allVisits.forEach((el) => {
-                    let inputedId = el.id.search(inputedData);
+
                     let inputedName = el.fullName.search(inputedData);
                     let inputedDoctor = el.doctor.search(inputedData);
-                    if (inputedId !== -1 || inputedName !== -1 || inputedDoctor !== -1) {
+                    let inputedDiscription = el.shortDiscriptionsOfVisit.search(inputedData);
+
+                    if (inputedName !== -1 || inputedDoctor !== -1 || inputedDiscription !== -1) {
                         visitsArray.push(el);
                     }
                 });
@@ -76,27 +96,56 @@ export default class Filter {
         });
     }
 
-    filterByUrgency(allVisits) {
-        this.urgencySelect.addEventListener('change', (e) => {
-            this.input.value = '';
+    _filterByUrgency(allVisits) {
+        this._urgencySelect.addEventListener("change", (e) => {
+            this._input.value = "";
+
             e.preventDefault();
             e.stopPropagation();
+
             let filteredUrgencyArray = [];
-            let visitsContainer = document.querySelector(".visits");
-            visitsContainer.innerHTML = "";
-            if (e.currentTarget.value === 'All') {
+
+            if (e.currentTarget.value === "All") {
                 Visit.renderAllVisits(allVisits);
-                this.filter(allVisits);
+                this._filter(allVisits);
             } else {
-                allVisits.forEach(el => {
-                    if (el.urgency === e.currentTarget.value) {
-                        filteredUrgencyArray.push(el);
+                allVisits.forEach(elem => {
+                    if (elem.urgency === e.currentTarget.value) {
+                        filteredUrgencyArray.push(elem);
+                    } else {
+                        let visitsContainer = document.querySelector(".visits");
+                        visitsContainer.innerHTML = "No data found";
                     }
                 });
-                this.filter(filteredUrgencyArray);
+
+                this._filter(filteredUrgencyArray);
                 Visit.renderAllVisits(filteredUrgencyArray);
             }
         });
     }
 
+    _filterByStatus(allVisits) {
+        this._statusSelect.addEventListener("change", (e) => {
+            this._input.value = "";
+
+            e.preventDefault();
+            e.stopPropagation();
+
+            let filteredStatusArray = [];
+
+            if (e.currentTarget.value === "All") {
+                Visit.renderAllVisits(allVisits);
+                this._filter(allVisits);
+            } else {
+                allVisits.forEach(elem => {
+                    if (elem.status === e.currentTarget.value) {
+                        filteredStatusArray.push(elem);
+                    }
+                });
+
+                this._filter(filteredStatusArray);
+                Visit.renderAllVisits(filteredStatusArray);
+            }
+        });
+    }
 }

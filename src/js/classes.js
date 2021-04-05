@@ -2,166 +2,217 @@ import Form from "./form"
 
 export class Textarea {
     constructor(typeOfTextarea) {
-        this.e = document.createElement("textarea");
+        this._elem = document.createElement("textarea");
+
         if (typeOfTextarea === "shortDiscriptionsOfVisit") {
-            this.e.classList = "textarea";
-            this.e.setAttribute("name", "shortDiscriptionsOfVisit");
-            this.e.setAttribute("placeholder", "Краткое описание визита");
-            return this.e;
+            this._elem.classList = "textarea";
+            this._elem.setAttribute("name", "shortDiscriptionsOfVisit");
+            this._elem.setAttribute("placeholder", "Краткое описание визита");
+
+            return this._elem;
         }
         if (typeOfTextarea === "pastDiseases") {
-            this.e.classList = "textarea";
-            this.e.setAttribute("name", "pastDiseases");
-            this.e.setAttribute("placeholder", "Перенесенные заболевания сердечно-сосудистой системы");
-            this.e.setAttribute("required", "required");
-            return this.e;
+            this._elem.classList = "textarea";
+            this._elem.setAttribute("name", "pastDiseases");
+            this._elem.setAttribute("placeholder", "Перенесенные заболевания сердечно-сосудистой системы");
+            this._elem.setAttribute("required", "required");
+
+            return this._elem;
         }
     }
 }
 
 export class Button {
     constructor(typeOfButton) {
-        this.e = document.createElement("button");
+        this._elem = document.createElement("button");
 
         if (typeOfButton === "login") {
-            this.e.classList = "login-btn";
-            this.e.setAttribute("type", "submit");
-            this.e.innerText = "Войти";
+            this._elem.classList = "login-btn";
+            this._elem.setAttribute("type", "submit");
+            this._elem.innerText = "Войти";
 
-            return this.e;
+            return this._elem;
         }
 
         if (typeOfButton === "createVisitModalBtn") {
 
-            this.e.classList = "create-visit-modal-btn";
-            this.e.setAttribute("type", "submit");
-            this.e.innerText = "Создать";
+            this._elem.classList = "create-visit-modal-btn";
+            this._elem.setAttribute("type", "submit");
+            this._elem.innerText = "Создать";
             
-            return this.e;
+            return this._elem;
         }
 
         if (typeOfButton === "editVisitModalBtn") {
 
-            this.e.classList = "edit-visit-modal-btn";
-            this.e.setAttribute("type", "submit");
-            this.e.innerText = "Редактировать";
+            this._elem.classList = "edit-visit-modal-btn";
+            this._elem.setAttribute("type", "submit");
+            this._elem.innerText = "Редактировать";
             
-            return this.e;
+            return this._elem;
         }
 
-        // if (typeOfButton === "signIn") {
+        if (typeOfButton === "signIn") {
 
-        //     this.e.classList = "btn_sign_in"
-        //     this.e.innerHTML = "Sign in"
+            this._elem.classList = "sign-in-btn"
+            this._elem.innerHTML = "Войти"
 
-        //     return this.e;
-        // }
+            return this._elem;
+        }
+
+        if (typeOfButton === "createVisit") {
+
+            this._elem.classList = "create-visit-btn"
+            this._elem.innerHTML = "Создать визит"
+            this._elem.style.display = "none";
+
+            return this._elem;
+        }
+
+        if (typeOfButton === "editVisitButton") {
+
+            this._elem.classList = "edit-visit-button"
+            this._elem.innerHTML = "Редактировать"
+
+            return this._elem;
+        }
+
+        if (typeOfButton === "removeVisitButton") {
+
+            this._elem.classList = "remove-visit-button"
+            this._elem.innerHTML = "Удалить визит"
+
+            return this._elem;
+        }
+        if (typeOfButton === "showMoreButton") {
+
+            this._elem.classList = "show-more-btn"
+            this._elem.innerHTML = "Показать больше"
+
+            return this._elem;
+        }
+        if (typeOfButton === "showLessButton") {
+
+            this._elem.classList = "show-less-btn"
+            this._elem.innerHTML = "Показать меньше"
+            this._elem.classList.add("hidden");
+
+            return this._elem;
+        }
     }
 }
 
 export  class Input {
     constructor(typeOfInput) {
-        this.e = document.createElement('input');
+        this._elem = document.createElement("input");
         if (typeOfInput === "email") {
-            this.e.setAttribute("type", "text");
-            this.e.setAttribute("name", "email");
-            this.e.setAttribute("id", "email");
-            this.e.classList = "email-input";
-            this.e.setAttribute("required", "required");
-            this.inputLabel = document.createElement("label");
-            this.inputLabel.classList = "input-label";
-            this.inputLabel.innerText = "E-mail";
-            this.inputLabel.append(this.e);
+            this._elem.setAttribute("type", "text");
+            this._elem.setAttribute("name", "email");
+            this._elem.setAttribute("id", "email");
+            this._elem.classList = "email-input";
+            this._elem.setAttribute("required", "required");
+            this._inputLabel = document.createElement("label");
+            this._inputLabel.classList = "input-label";
+            this._inputLabel.innerText = "E-mail";
+            this._inputLabel.append(this._elem);
 
-            return this.inputLabel;
+            return this._inputLabel;
         }
 
         if (typeOfInput === "password") {
-            this.e.setAttribute("type", "password");
-            this.e.setAttribute("name", "password");
-            this.e.setAttribute("id", "password");
-            this.e.classList.add("password-input");
-            this.e.setAttribute("required", "required");
-            this.inputLabel = document.createElement("label");
-            this.inputLabel.classList.add("input-label");
-            this.inputLabel.innerText = "Password";
-            this.inputLabel.append(this.e);
+            this._elem.setAttribute("type", "password");
+            this._elem.setAttribute("name", "password");
+            this._elem.setAttribute("id", "password");
+            this._elem.classList.add("password-input");
+            this._elem.setAttribute("required", "required");
+            this._inputLabel = document.createElement("label");
+            this._inputLabel.classList.add("input-label");
+            this._inputLabel.innerText = "Password";
+            this._inputLabel.append(this._elem);
 
-            return this.inputLabel;
+            return this._inputLabel;
         }
 
         if (typeOfInput === "fullName") {
-            this.e.setAttribute("type", "text");
-            this.e.setAttribute("name", "fullName");
-            this.e.setAttribute("required", "required");
-            this.e.setAttribute("placeholder", "ФИО");
-            this.e.classList.add("one-line-input");
+            this._elem.setAttribute("type", "text");
+            this._elem.setAttribute("name", "fullName");
+            this._elem.setAttribute("required", "required");
+            this._elem.setAttribute("placeholder", "ФИО");
+            this._elem.classList.add("one-line-input");
 
-            return this.e;
+            return this._elem;
         }
 
         if (typeOfInput === "age") {
-            this.e.setAttribute("type", "number");
-            this.e.setAttribute("name", "age");
-            this.e.setAttribute("required", "required");
-            this.e.setAttribute("placeholder", "Возраст");
-            this.e.classList.add("one-line-input");
+            this._elem.setAttribute("type", "number");
+            this._elem.setAttribute("name", "age");
+            this._elem.setAttribute("required", "required");
+            this._elem.setAttribute("placeholder", "Возраст");
+            this._elem.classList.add("one-line-input");
             
 
-            this.checkAgeBound = this.checkAge.bind(this);
-            this.e.addEventListener("focusout", this.checkAgeBound);
+            this._checkAgeBind = this._checkAge.bind(this);
+            this._elem.addEventListener("focusout", this._checkAgeBind);
 
-            return this.e;
+            return this._elem;
         }
 
         if (typeOfInput === "purposeOfVisit") {
-            this.e.setAttribute("type", "text");
-            this.e.setAttribute("name", "purposeOfVisit");
-            this.e.setAttribute("required", "required");
-            this.e.setAttribute("placeholder", "Цель визита");
-            this.e.classList.add("one-line-input");
+            this._elem.setAttribute("type", "text");
+            this._elem.setAttribute("name", "purposeOfVisit");
+            this._elem.setAttribute("required", "required");
+            this._elem.setAttribute("placeholder", "Цель визита");
+            this._elem.classList.add("one-line-input");
 
-            return this.e;
+            return this._elem;
         }
 
         if (typeOfInput === "bloodPressure") {
-            this.e.setAttribute("type", "text");
-            this.e.setAttribute("name", "bloodPressure");
-            this.e.setAttribute("required", "required");
-            this.e.setAttribute("placeholder", "Обычное давление");
-            this.e.classList.add("one-line-input");
+            this._elem.setAttribute("type", "text");
+            this._elem.setAttribute("name", "bloodPressure");
+            this._elem.setAttribute("required", "required");
+            this._elem.setAttribute("placeholder", "Обычное давление");
+            this._elem.classList.add("one-line-input");
 
-            return this.e;
+            return this._elem;
         }
 
         if (typeOfInput === "bodyMassIndex") {
-            this.e.setAttribute("type", "text");
-            this.e.setAttribute("name", "bodyMassIndex");
-            this.e.setAttribute("required", "required");
-            this.e.setAttribute("placeholder", "Индекс массы тела");
-            this.e.classList.add("one-line-input");
+            this._elem.setAttribute("type", "text");
+            this._elem.setAttribute("name", "bodyMassIndex");
+            this._elem.setAttribute("required", "required");
+            this._elem.setAttribute("placeholder", "Индекс массы тела");
+            this._elem.classList.add("one-line-input");
 
-            return this.e;
+            return this._elem;
         }
 
         if (typeOfInput === "dateOfPreviousVisit") {
-            this.e.setAttribute("type", "text");
-            this.e.setAttribute("name", "dateOfPreviousVisit");
-            this.e.setAttribute("required", "required");
-            this.e.setAttribute("placeholder", "Дата последнего визита");
-            this.e.classList.add("one-line-input");
+            this._elem.setAttribute("type", "text");
+            this._elem.setAttribute("name", "dateOfPreviousVisit");
+            this._elem.setAttribute("required", "required");
+            this._elem.setAttribute("placeholder", "Дата последнего визита");
+            this._elem.classList.add("one-line-input");
 
-            return this.e;
+            return this._elem;
+        }
+
+        if (typeOfInput === "search") {
+            this._elem.setAttribute("type", "text");
+            this._elem.setAttribute("placeholder", "ФИО, доктор, описание");
+            this._elem.classList.add("filter-live-search");
+
+            return this._elem;
         }
     }
 
-    checkAge() {
-        if (this.e.value < 5)  {
+    _checkAge() {
+        if (this._elem.value < 5)  {
             alert("Возраст должен быть не меньше 5 лет");
-            this.e.value = "";
-        } else if (this.e.value > 100) {
+            this._elem.value = "";
+        } else if (this._elem.value > 100) {
             alert("Возраст должен быть не больше 100 лет");
-            this.e.value = "";
+            this._elem.value = "";
         }
     }
 }
@@ -169,46 +220,60 @@ export  class Input {
 export class Select {
     constructor(typeOfSelect) {
         if (typeOfSelect === "doctor") {
-            this.e = document.createElement("select");
-            this.e.classList = "doctor-select";
-            this.e.setAttribute("required", "required");
-            this.e.insertAdjacentHTML("afterbegin",
+            this._elem = document.createElement("select");
+            this._elem.classList = "doctor-select";
+            this._elem.setAttribute("required", "required");
+            this._elem.insertAdjacentHTML("afterbegin",
                 `<option selected disabled value="">Доктор</option>
                  <option>Cardiologist</option>
                  <option>Dentist</option>
-                 <option>Therapist</option>`)
-                 this.onDoctorSelectBound = this.onDoctorSelect.bind(this);
-                 this.e.addEventListener("change", this.onDoctorSelectBound);
+                 <option>Therapist</option>`);
+                 
+                 this._onDoctorSelectBind = this._onDoctorSelect.bind(this);
+                 this._elem.addEventListener("change", this._onDoctorSelectBind);
 
-                 return this.e;
+                 return this._elem;
         } 
         
         if (typeOfSelect === "urgency") {
-            this.e = document.createElement("select");
-            this.e.classList = "urgency-select";
-            this.e.setAttribute("required", "required");
-            this.e.insertAdjacentHTML("afterbegin",
+            this._elem = document.createElement("select");
+            this._elem.classList = "urgency-select";
+            this._elem.setAttribute("required", "required");
+            this._elem.insertAdjacentHTML("afterbegin",
                 `<option selected disabled value="">Срочность</option>
                  <option>Regular</option>
                  <option>Priority</option>
                  <option>Urgent</option>
             `)
 
-            return this.e;
+            return this._elem;
+        }
+        if (typeOfSelect === "searchUrgency") {
+            this._elem = document.createElement("select");
+            this._elem.classList = "filter-select-urgency";
+           
+            return this._elem;
+        }
+        if (typeOfSelect === "searchStatus") {
+            this._elem = document.createElement("select");
+            this._elem.classList = "filter-select-status";
+           
+            return this._elem;
         }
     }
-    onDoctorSelect() {
+    _onDoctorSelect() {
         let selectedIndex = document.querySelector(".doctor-select").selectedIndex;
         let options = document.querySelector(".doctor-select").options;
         let selectedOption = options[selectedIndex].value;
 
-        let createVisitForm = document.querySelector('.createVisit-form');
+        let createVisitForm = document.querySelector(".createVisit-form");
 
         while (createVisitForm.children.length > 2) {
             createVisitForm.removeChild(createVisitForm.lastChild);
         }
 
         switch (selectedOption) {
+
             case "Cardiologist":
                 new Form("doctorCardiologist");
                 break;
@@ -218,16 +283,17 @@ export class Select {
             case "Therapist":
                 new Form("doctorTherapist");
                 break;
-
         }
     }
 }
 
 export class InputFieldTitle {
     constructor(fieldName) {
-        this.e = document.createElement("span");
-        this.e.classList.add("field-name");
-        this.e.innerText = fieldName;
-        return this.e;
+
+        this._elem = document.createElement("span");
+        this._elem.classList = "field-name";
+        this._elem.innerText = fieldName;
+
+        return this._elem;
     }
 }

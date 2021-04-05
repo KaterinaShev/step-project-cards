@@ -2,6 +2,8 @@ import Modal from "./modal.js";
 import Request from "./request.js"
 import Visit from "./visit.js";
 import Filter from "./filter.js";
+import {Button, Input, Select, Textarea, InputFieldTitle} from "./classes.js";
+
 
 function createContent() {
     const header = document.createElement("header");
@@ -14,15 +16,10 @@ function createContent() {
     a.href = "#"
     header.append(a);
 
-    const signIn = document.createElement("button");
-    signIn.className = "sign-in-btn btn btn-primary";
-    signIn.innerHTML = "Войти";
+    const signIn = new Button("signIn")
     header.append(signIn);
 
-    const createVisit = document.createElement("button");
-    createVisit.className = "create-visit-btn btn btn-primary"
-    createVisit.style.display = "none";
-    createVisit.innerHTML = "Создать визит";
+    const createVisit = new Button("createVisit");
     header.append(createVisit);
 
     const main = document.createElement("main");
@@ -48,6 +45,11 @@ function createContent() {
     divVisits.className = "no-visits-notice";
     divVisits.innerHTML = "No items have been added yet.";
     sectionVisits.append(divVisits)  
+
+    const overlay = document.createElement("div");
+    overlay.className = "overlay";
+    overlay.id = "overlay-moda";
+    document.body.append(overlay);
 }
 
 window.onload = function () {
@@ -76,6 +78,5 @@ window.onload = function () {
                 }
             })
             .catch(error => console.error(error));
-
     }  
 };

@@ -5,33 +5,34 @@ import Filter from "./filter"
 
 export default class Form {
     constructor(typeOfForm, visit, id, data) {
-        this.visit = visit;
-        this.id = id;
-        this.data = data;
+        this._visit = visit;
+        this._id = id;
+        this._data = data;
+        // console.log(this._visit);
 
-        this.e = document.createElement("form");
+        this._elem = document.createElement("form");
 
         if (typeOfForm === "login") {
-            this.e.classList = "login-form";
+            this._elem.classList = "login-form";
 
-            this.mailInput = new Input("email");
-            this.e.append(this.mailInput);
+            this._mailInput = new Input("email");
+            this._elem.append(this._mailInput);
 
-            this.passwordInput = new Input("password");
-            this.e.append(this.passwordInput);
+            this._passwordInput = new Input("password");
+            this._elem.append(this._passwordInput);
  
-            this.loginButton = new Button("login");
-            this.e.append(this.loginButton);  
+            this._loginButton = new Button("login");
+            this._elem.append(this._loginButton);  
 
-            this.errorNote = document.createElement("p");
-            this.errorNote.className = "error-note";
-            this.errorNote.innerText = "Неправильный e-mail или пароль";
-            this.errorNote.style.visibility = "hidden";
-            this.errorNote.style.opacity = "0";
-            this.e.append(this.errorNote);
+            this._errorNote = document.createElement("p");
+            this._errorNote.className = "error-note";
+            this._errorNote.innerText = "Неправильный e-mail или пароль";
+            this._errorNote.style.visibility = "hidden";
+            this._errorNote.style.opacity = "0";
+            this._elem.append(this._errorNote);
 
 
-            this.e.addEventListener("submit", function(e) {
+            this._elem.addEventListener("submit", function(e) {
                 e.preventDefault();
 
                 let formData = new FormData(this);
@@ -62,212 +63,213 @@ export default class Form {
                     .catch(error => console.error(error));
                     this.reset();
             })
-            return this.e;
+            return this._elem;
         }
         if (typeOfForm === "createVisit") {
-            this.e.classList = "createVisit-form";
-            this.select = new Select("doctor")
-            this.e.append(this.select);
+            this._elem.classList = "createVisit-form";
+            this._select = new Select("doctor")
+            this._elem.append(this._select);
 
-            return this.e;
+            return this._elem;
         }
         if (typeOfForm === "editVisit") {
-            this.e.classList = "editVisit-form";
+            this._elem.classList = "editVisit-form";
 
-            if (this.data.doctor === "Cardiologist") {
-                this.doctor = new InputFieldTitle("Doctor: ");
-                this.doctor.insertAdjacentHTML("beforeend", `${this.data.doctor}`);
-                this.urgency = new InputFieldTitle("Urgency: ");
-                this.urgency.insertAdjacentHTML("beforeend", `${this.data.urgency}`);
+            // console.log(this._visit);
+            if (this._visit._data.doctor === "Cardiologist") {
+                this._doctor = new InputFieldTitle("Доктор: ");
+                this._doctor.insertAdjacentHTML("beforeend", `${this._visit._data.doctor}`);
+                this._urgency = new InputFieldTitle("Срочность: ");
+                this._urgency.insertAdjacentHTML("beforeend", `${this._visit._data.urgency}`);
 
-                this.fullName = new Input("fullName");
-                this.fullName.value = data.fullName;
-                this.age = new Input("age");
-                this.age.value = data.age;
-                this.inputPurpose = new Input("purposeOfVisit");
-                this.inputPurpose.value = data.purposeOfVisit;
-                this.bloodPressure = new Input('bloodPressure');
-                this.bloodPressure.value = data.bloodPressure;
-                this.bodyMassIndex = new Input("bodyMassIndex");
-                this.bodyMassIndex.value = data.bodyMassIndex;
-                this.pastIllnesses = new Textarea("pastIllnesses");
-                this.pastIllnesses.value = data.pastIllnesses;
+                this._fullName = new Input("fullName");
+                this._fullName.value = this._visit._data.fullName;
+                this._age = new Input("age");
+                this._age.value = this._visit._data.age;
+                this._inputPurpose = new Input("purposeOfVisit");
+                this._inputPurpose.value = this._visit._data.purposeOfVisit;
+                this._bloodPressure = new Input("bloodPressure");
+                this._bloodPressure.value = this._visit._data.bloodPressure;
+                this._bodyMassIndex = new Input("bodyMassIndex");
+                this._bodyMassIndex.value = this._visit._data.bodyMassIndex;
+                this._pastDiseases = new Textarea("pastDiseases");
+                this._pastDiseases.value = this._visit._data.pastDiseases;
 
-                this.shortDescription = new Textarea("shortDescription");
-                this.shortDescription.value = data.shortDescription;
+                this._shortDiscriptionsOfVisit = new Textarea("shortDiscriptionsOfVisit");
+                this._shortDiscriptionsOfVisit.value = this._visit._data.shortDiscriptionsOfVisit;
 
-                this.editVisitModalBtn = new Button("editVisitModalBtn");
+                this._editVisitModalBtn = new Button("editVisitModalBtn");
 
-                this.onEditVisitClickBound = this.onEditVisitClick.bind(this);
-                this.e.addEventListener("submit", this.onEditVisitClickBound);
+                this._editVisitClickBind = this._editVisitClick.bind(this);
+                this._elem.addEventListener("submit", this._editVisitClickBind);
 
-                this.e.append(this.doctor);
-                this.e.append(this.urgency);
-                this.e.append(new InputFieldTitle("Full name:"));
-                this.e.append(this.fullName);
-                this.e.append(new InputFieldTitle("Age:"));
-                this.e.append(this.age);
-                this.e.append(new InputFieldTitle("Purpose of visit:"));
-                this.e.append(this.inputPurpose);
-                this.e.append(new InputFieldTitle("Usual blood pressure:"));
-                this.e.append(this.bloodPressure);
-                this.e.append(new InputFieldTitle("Body mass index:"));
-                this.e.append(this.bodyMassIndex);
-                this.e.append(new InputFieldTitle("Past illnesses of cardiovascular system:"));
-                this.e.append(this.pastIllnesses);
-                this.e.append(new InputFieldTitle("Short description:"));
-                this.e.append(this.shortDescription);
-                this.e.append(this.editVisitModalBtn);
+                this._elem.append(this._doctor);
+                this._elem.append(this._urgency);
+                this._elem.append(new InputFieldTitle("ФИО:"));
+                this._elem.append(this._fullName);
+                this._elem.append(new InputFieldTitle("Возраст:"));
+                this._elem.append(this._age);
+                this._elem.append(new InputFieldTitle("Цель визита:"));
+                this._elem.append(this._inputPurpose);
+                this._elem.append(new InputFieldTitle("Обычное давление:"));
+                this._elem.append(this._bloodPressure);
+                this._elem.append(new InputFieldTitle("Индекс массы тела:"));
+                this._elem.append(this._bodyMassIndex);
+                this._elem.append(new InputFieldTitle("Перенесенные заболевания сердечно-сосудистой системы:"));
+                this._elem.append(this._pastDiseases);
+                this._elem.append(new InputFieldTitle("Краткое описание визита:"));
+                this._elem.append(this._shortDiscriptionsOfVisit);
+                this._elem.append(this._editVisitModalBtn);
 
-                return this.e;
+                return this._elem;
             }
 
-            if (this.data.doctor === "Dentist") {
-                this.doctor = new InputFieldTitle("Doctor: ");
-                this.doctor.insertAdjacentHTML("beforeend", `${this.data.doctor}`);
-                this.urgency = new InputFieldTitle("Urgency: ");
-                this.urgency.insertAdjacentHTML("beforeend", `${this.data.urgency}`);
+            if (this._visit._data.doctor === "Dentist") {
+                this._doctor = new InputFieldTitle("Доктор: ");
+                this._doctor.insertAdjacentHTML("beforeend", `${this._visit._data.doctor}`);
+                this._urgency = new InputFieldTitle("Срочность: ");
+                this._urgency.insertAdjacentHTML("beforeend", `${this._visit._data.urgency}`);
 
-                this.fullName = new Input("fullName");
-                this.fullName.value = data.fullName;
-                this.inputPurpose = new Input("purposeOfVisit");
-                this.inputPurpose.value = data.purposeOfVisit;
-                this.inputDateOfPrevVisit = new Input("dateOfPreviousVisit");
-                this.inputDateOfPrevVisit.value = data.dateOfPreviousVisit;
-                this.shortDescription = new Textarea("shortDescription");
-                this.shortDescription.value = data.shortDescription;
+                this._fullName = new Input("fullName");
+                this._fullName.value = this._visit._data.fullName;
+                this._inputPurpose = new Input("purposeOfVisit");
+                this._inputPurpose.value = this._visit._data.purposeOfVisit;
+                this._inputDateOfPrevVisit = new Input("dateOfPreviousVisit");
+                this._inputDateOfPrevVisit.value = this._visit._data.dateOfPreviousVisit;
+                this._shortDiscriptionsOfVisit = new Textarea("shortDiscriptionsOfVisit");
+                this._shortDiscriptionsOfVisit.value = this._visit._data.shortDiscriptionsOfVisit;
 
-                this.editVisitModalBtn = new Button("editVisitModalBtn");
+                this._editVisitModalBtn = new Button("editVisitModalBtn");
 
-                this.onEditVisitClickBound = this.onEditVisitClick.bind(this);
-                this.e.addEventListener("submit", this.onEditVisitClickBound);
+                this._editVisitClickBind = this._editVisitClick.bind(this);
+                this._elem.addEventListener("submit", this._editVisitClickBind);
 
-                this.e.append(this.doctor);
-                this.e.append(this.urgency);
-                this.e.append(new InputFieldTitle("Full name:"));
-                this.e.append(this.fullName);
-                this.e.append(new InputFieldTitle("Purpose of visit:"));
-                this.e.append(this.inputPurpose);
-                this.e.append(new InputFieldTitle("Date of previous visit:"));
-                this.e.append(this.inputDateOfPrevVisit);
-                this.e.append(new InputFieldTitle("Short description:"));
-                this.e.append(this.shortDescription);
-                this.e.append(this.editVisitModalBtn);
+                this._elem.append(this._doctor);
+                this._elem.append(this._urgency);
+                this._elem.append(new InputFieldTitle("ФИО:"));
+                this._elem.append(this._fullName);
+                this._elem.append(new InputFieldTitle("Цель визита:"));
+                this._elem.append(this._inputPurpose);
+                this._elem.append(new InputFieldTitle("Дата последнего визита:"));
+                this._elem.append(this._inputDateOfPrevVisit);
+                this._elem.append(new InputFieldTitle("Краткое описание визита:"));
+                this._elem.append(this._shortDiscriptionsOfVisit);
+                this._elem.append(this._editVisitModalBtn);
             }
 
-            if (this.data.doctor === "Therapist") {
-                this.doctor = new InputFieldTitle("Doctor: ");
-                this.doctor.insertAdjacentHTML("beforeend", `${this.data.doctor}`);
-                this.urgency = new InputFieldTitle("Urgency: ");
-                this.urgency.insertAdjacentHTML("beforeend", `${this.data.urgency}`);
+            if (this._visit._data.doctor === "Therapist") {
+                this._doctor = new InputFieldTitle("Доктор: ");
+                this._doctor.insertAdjacentHTML("beforeend", `${this._visit._data.doctor}`);
+                this._urgency = new InputFieldTitle("Срочность: ");
+                this._urgency.insertAdjacentHTML("beforeend", `${this._visit._data.urgency}`);
 
-                this.fullName = new Input("fullName");
-                this.fullName.value = data.fullName;
-                this.age = new Input("age");
-                this.age.value = data.age;
-                this.inputPurpose = new Input("purposeOfVisit");
-                this.inputPurpose.value = data.purposeOfVisit;
-                this.shortDescription = new Textarea("shortDescription");
-                this.shortDescription.value = data.shortDescription;
+                this._fullName = new Input("fullName");
+                this._fullName.value = this._visit._data.fullName;
+                this._age = new Input("age");
+                this._age.value = this._visit._data.age;
+                this._inputPurpose = new Input("purposeOfVisit");
+                this._inputPurpose.value = this._visit._data.purposeOfVisit;
+                this._shortDiscriptionsOfVisit = new Textarea("shortDiscriptionsOfVisit");
+                this._shortDiscriptionsOfVisit.value = this._visit._data.shortDiscriptionsOfVisit;
 
-                this.editVisitModalBtn = new Button("editVisitModalBtn");
+                this._editVisitModalBtn = new Button("editVisitModalBtn");
 
-                this.onEditVisitClickBound = this.onEditVisitClick.bind(this);
-                this.e.addEventListener("submit", this._onEditVisitClickBound);
+                this._editVisitClickBind = this._editVisitClick.bind(this);
+                this._elem.addEventListener("submit", this._editVisitClickBind);
 
-                this.e.append(this.doctor);
-                this.e.append(this.urgency);
-                this.e.append(new InputFieldTitle("Full name:"));
-                this.e.append(this.fullName);
-                this.e.append(new InputFieldTitle("Age:"));
-                this.e.append(this.age);
-                this.e.append(new InputFieldTitle("Purpose of visit:"));
-                this.e.append(this.inputPurpose);
-                this.e.append(new InputFieldTitle("Short description:"));
-                this.e.append(this.shortDescription);
-                this.e.append(this.editVisitModalBtn);
+                this._elem.append(this._doctor);
+                this._elem.append(this._urgency);
+                this._elem.append(new InputFieldTitle("ФИО:"));
+                this._elem.append(this._fullName);
+                this._elem.append(new InputFieldTitle("Возраст:"));
+                this._elem.append(this._age);
+                this._elem.append(new InputFieldTitle("Цель визита:"));
+                this._elem.append(this._inputPurpose);
+                this._elem.append(new InputFieldTitle("Краткое описание визита:"));
+                this._elem.append(this._shortDiscriptionsOfVisit);
+                this._elem.append(this._editVisitModalBtn);
             }
-            return this.e;
+            return this._elem;
         }
 
         if (typeOfForm === "doctorCardiologist") {
-            this.e = document.querySelector(".createVisit-form");
+            this._elem = document.querySelector(".createVisit-form");
 
-            this.fullName = new Input("fullName");
-            this.age = new Input("age");
-            this.purposeOfVisit = new Input("purposeOfVisit");
-            this.bloodPressure = new Input("bloodPressure");
-            this.bodyMassIndex = new Input("bodyMassIndex");
-            this.pastDiseases = new Textarea("pastDiseases");
-            this.urgency = new Select("urgency");
-            this.shortDiscriptionsOfVisit = new Textarea("shortDiscriptionsOfVisit");
-            this.createVisitModalBtn = new Button("createVisitModalBtn");
+            this._fullName = new Input("fullName");
+            this._age = new Input("age");
+            this._purposeOfVisit = new Input("purposeOfVisit");
+            this._bloodPressure = new Input("bloodPressure");
+            this._bodyMassIndex = new Input("bodyMassIndex");
+            this._pastDiseases = new Textarea("pastDiseases");
+            this._urgency = new Select("urgency");
+            this._shortDiscriptionsOfVisit = new Textarea("shortDiscriptionsOfVisit");
+            this._createVisitModalBtn = new Button("createVisitModalBtn");
 
-            this.CreateVisitClickBound = this.onCreateVisit.bind(this);
-            this.e.addEventListener("submit", this.CreateVisitClickBound);
+            this._createVisitClickBind = this._createVisit.bind(this);
+            this._elem.addEventListener("submit", this._createVisitClickBind);
 
 
-            this.e.append(this.fullName);
-            this.e.append(this.age);
-            this.e.append(this.purposeOfVisit);
-            this.e.append(this.bloodPressure);
-            this.e.append(this.bodyMassIndex);
-            this.e.append(this.pastDiseases);
-            this.e.append(this.urgency);
-            this.e.append(this.shortDiscriptionsOfVisit);
-            this.e.append(this.createVisitModalBtn);
+            this._elem.append(this._fullName);
+            this._elem.append(this._age);
+            this._elem.append(this._purposeOfVisit);
+            this._elem.append(this._bloodPressure);
+            this._elem.append(this._bodyMassIndex);
+            this._elem.append(this._pastDiseases);
+            this._elem.append(this._urgency);
+            this._elem.append(this._shortDiscriptionsOfVisit);
+            this._elem.append(this._createVisitModalBtn);
         }
 
         if (typeOfForm === "doctorDentist") {
-            this.e = document.querySelector(".createVisit-form");
+            this._elem = document.querySelector(".createVisit-form");
 
-            this.fullName = new Input("fullName");
-            this.purposeOfVisit = new Input("purposeOfVisit");
-            this.urgency = new Select("urgency");
-            this.dateOfPreviousVisit = new Input("dateOfPreviousVisit");
-            this.shortDiscriptionsOfVisit = new Textarea("shortDiscriptionsOfVisit");
-            this.createVisitModalBtn = new Button("createVisitModalBtn");
+            this._fullName = new Input("fullName");
+            this._purposeOfVisit = new Input("purposeOfVisit");
+            this._urgency = new Select("urgency");
+            this._dateOfPreviousVisit = new Input("dateOfPreviousVisit");
+            this._shortDiscriptionsOfVisit = new Textarea("shortDiscriptionsOfVisit");
+            this._createVisitModalBtn = new Button("createVisitModalBtn");
 
-            this.CreateVisitClickBound = this.onCreateVisit.bind(this);
-            this.e.addEventListener('submit', this.CreateVisitClickBound);
+            this._createVisitClickBind = this._createVisit.bind(this);
+            this._elem.addEventListener("submit", this._createVisitClickBind);
 
-            this.e.append(this.fullName);
-            this.e.append(this.purposeOfVisit);
-            this.e.append(this.urgency);
-            this.e.append(this.dateOfPreviousVisit);
-            this.e.append(this.shortDiscriptionsOfVisit);
-            this.e.append(this.createVisitModalBtn);
+            this._elem.append(this._fullName);
+            this._elem.append(this._purposeOfVisit);
+            this._elem.append(this._urgency);
+            this._elem.append(this._dateOfPreviousVisit);
+            this._elem.append(this._shortDiscriptionsOfVisit);
+            this._elem.append(this._createVisitModalBtn);
         }
 
         if (typeOfForm === "doctorTherapist") {
-            this.e = document.querySelector(".createVisit-form");
+            this._elem = document.querySelector(".createVisit-form");
 
-            this.fullName = new Input("fullName");
-            this.age = new Input("age");
-            this.purposeOfVisit = new Input("purposeOfVisit");
-            this.urgency = new Select("urgency");
-            this.shortDiscriptionsOfVisit = new Textarea("shortDiscriptionsOfVisit");
-            this.createVisitModalBtn = new Button("createVisitModalBtn");
+            this._fullName = new Input("fullName");
+            this._age = new Input("age");
+            this._purposeOfVisit = new Input("purposeOfVisit");
+            this._urgency = new Select("urgency");
+            this._shortDiscriptionsOfVisit = new Textarea("shortDiscriptionsOfVisit");
+            this._createVisitModalBtn = new Button("createVisitModalBtn");
 
-            this.CreateVisitClickBound = this.onCreateVisit.bind(this);
-            this.e.addEventListener("submit", this.CreateVisitClickBound);
+            this._createVisitClickBind = this._createVisit.bind(this);
+            this._elem.addEventListener("submit", this._createVisitClickBind);
 
-            this.e.append(this.fullName);
-            this.e.append(this.age);
-            this.e.append(this.purposeOfVisit);
-            this.e.append(this.urgency);
-            this.e.append(this.shortDiscriptionsOfVisit);
-            this.e.append(this.createVisitModalBtn);
+            this._elem.append(this._fullName);
+            this._elem.append(this._age);
+            this._elem.append(this._purposeOfVisit);
+            this._elem.append(this._urgency);
+            this._elem.append(this._shortDiscriptionsOfVisit);
+            this._elem.append(this._createVisitModalBtn);
         }
     }
 
-    onCreateVisit(e) {
+    _createVisit(e) {
         e.preventDefault();
 
         let selectedDoctor = document.querySelector(".doctor-select").value;
         let selectedUrgency = document.querySelector(".urgency-select").value;
 
-        let formData = new FormData(this.e);
+        let formData = new FormData(this._elem);
         formData = Object.fromEntries(formData);
         formData["doctor"] = selectedDoctor;
         formData["urgency"] = selectedUrgency;
@@ -296,23 +298,27 @@ export default class Form {
         })
         .catch(error => console.error(error));
 
-    this.e.reset();
+    this._elem.reset();
     }
 
-    onEditVisitClick(e) {
+    _editVisitClick(e) {
         e.preventDefault();
 
-        let formData = new FormData(this.e);
+        let formData = new FormData(this._elem);
         formData = Object.fromEntries(formData);
-        formData["doctor"] = this.data.doctor;
-        formData["urgency"] = this.data.urgency;
+        formData["doctor"] = this._visit._data.doctor;
+        formData["urgency"] = this._visit._data.urgency;
 
-        new Request("put", formData, this.id)
+        new Request("put", formData, this._visit._data.id)
             .then((response) => {
+                let modal = document.querySelector(".modal-dialog");
+                modal.remove();
                 return response.json();
+                
             })
             .then((data) => {
-                this.visit.updateValue(data, this.visit);
+                this._visit.updateValue(data, this._visit);
+                
             })
             .catch(error => console.error(error));
     }

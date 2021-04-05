@@ -1,89 +1,75 @@
 import Request from "./request.js"
 import Modal from "./modal.js"
 import DragAndDrop from "./drag.js"
+import {Button} from "./classes.js";
 
 
 
 export default class Visit {
     constructor(visit) {
-        this.data = visit;
+        this._data = visit;
 
-        this.age = visit.age;
-        this.purposeOfVisit = visit.purposeOfVisit;
-        this.bloodPressure = visit.bloodPressure;
-        this.bodyMassIndex = visit.bodyMassIndex;
-        this.pastDiseases = visit.pastDiseases;
-        this.shortDiscriptionsOfVisit = visit.shortDiscriptionsOfVisit;
-        this.urgency = visit.urgency;
-        this.dateOfPreviousVisit = visit.dateOfPreviousVisit;
+        this._age = visit.age;
+        this._purposeOfVisit = visit.purposeOfVisit;
+        this._bloodPressure = visit.bloodPressure;
+        this._bodyMassIndex = visit.bodyMassIndex;
+        this._pastDiseases = visit.pastDiseases;
+        this._shortDiscriptionsOfVisit = visit.shortDiscriptionsOfVisit;
+        this._urgency = visit.urgency;
+        this._dateOfPreviousVisit = visit.dateOfPreviousVisit;
 
     }
 
     render (visit) {
-        this.container = document.querySelector(".visits")
-        this.visit = document.createElement("div");
-        this.visit.classList = "visit-card";
+        this._container = document.querySelector(".visits")
+        this._visit = document.createElement("div");
+        this._visit.classList = "visit-card";
 
-        this.visitIdContainer = document.createElement("p");
-        this.visitIdContainer.classList = "visit-id-container";
-        this.visitIdContainer.innerText = `ID: ${this.data.id}`
+        this._visitIdContainer = document.createElement("p");
+        this._visitIdContainer.classList = "visit-id-container";
+        this._visitIdContainer.innerText = `ID: ${this._data.id}`
 
-        this.fullName = document.createElement("p");
-        this.fullName.classList.add("full-name-container");
-        this.fullName.innerHTML = `ФИО: <span class="full-name">${this.data.fullName}</span>`;
+        this._fullName = document.createElement("p");
+        this._fullName.classList.add("full-name-container");
+        this._fullName.innerHTML = `ФИО: <span class="full-name">${this._data.fullName}</span>`;
 
-        this.doctor = document.createElement("p");
-        this.doctor.classList.add("doctor");
-        this.doctor.innerText = `Доктор: ${this.data.doctor}`;
+        this._doctor = document.createElement("p");
+        this._doctor.classList.add("doctor");
+        this._doctor.innerText = `Доктор: ${this._data.doctor}`;
 
-        this.showMoreBtn = document.createElement("button");
-        this.showMoreBtn.classList.add("show-more-btn");
-        this.showMoreBtn.setAttribute("vertical-align", "middle");
-        this.showMoreBtn.insertAdjacentHTML("afterbegin", "<span>Показать больше</span>");
+        this._showMoreBtn = new Button("showMoreButton");
+        this._showMoreBind = this.showMore.bind(this);
+        this._showMoreBtn.addEventListener("click",this._showMoreBind);
 
-        this.showMoreBound = this.showMore.bind(this);
-        this.showMoreBtn.addEventListener('click',this.showMoreBound);
+        this._visit.append(this._visitIdContainer);
+        this._visit.append(this._fullName);
+        this._visit.append(this._doctor);
+        this._visit.append(this._showMoreBtn);
 
-        this.visit.append(this.visitIdContainer);
-        this.visit.append(this.fullName);
-        this.visit.append(this.doctor);
-        this.visit.append(this.showMoreBtn);
+        this._showLessBtn = new Button("showLessButton");
 
-        this.showLessBtn = document.createElement("button");
-        this.showLessBtn.classList.add("show-less-btn");
-        this.showLessBtn.setAttribute("vertical-align", "middle");
-        this.showLessBtn.insertAdjacentHTML("afterbegin", "<span>Показать меньше</span>");
-        this.showLessBtn.classList.add("hidden");
+        this._showLessBind = this.showLess.bind(this);
+        this._showLessBtn.addEventListener("click", this._showLessBind);
 
-        this.showLessBound = this.showLess.bind(this);
-        this.showLessBtn.addEventListener("click", this.showLessBound);
+        this._editPanel = document.createElement("div");
+        this._editPanel.classList.add("edit-panel");
+        this._editPanel.classList.add("hidden");
 
-        this.editPanel = document.createElement("div");
-        this.editPanel.classList.add('edit-panel');
-        this.editPanel.classList.add('hidden');
+        this._editVisitIcon = new Button("editVisitButton")
+        this._enableEditModeBind = this.enableEditMode.bind(this);
+        this._editVisitIcon.addEventListener("click", this._enableEditModeBind);
 
-        this.editVisitIcon = document.createElement("button");
-        this.editVisitIcon.classList.add("edit-visit-button");
-        this.editVisitIcon.innerHTML = "Редактировать"
+        this._removeVisitIcon = new Button("removeVisitButton");
+        this._removeVisitBind = this.removeVisit.bind(this);
+        this._removeVisitIcon.addEventListener("click", this._removeVisitBind);
 
-        this.enableEditModeBound = this.enableEditMode.bind(this);
-        this.editVisitIcon.addEventListener("click", this.enableEditModeBound);
+        this._editPanel.append(this._editVisitIcon);
+        this._editPanel.append(this._removeVisitIcon);
 
-        this.removeVisitIcon = document.createElement("button");
-        this.removeVisitIcon.classList.add("remove-visit-button");
-        this.removeVisitIcon.innerHTML = "Удалить визит"
+        this._visit.append(this._editPanel);
+        this._visit.append(this._showLessBtn);
 
-
-        this.removeVisitBound = this.removeVisit.bind(this);
-        this.removeVisitIcon.addEventListener("click", this.removeVisitBound);
-
-        this.editPanel.append(this.editVisitIcon);
-        this.editPanel.append(this.removeVisitIcon);
-
-        this.visit.append(this.editPanel);
-        this.visit.append(this.showLessBtn);
-
-        this.container.append(this.visit);
+        this._container.append(this._visit);
 
 
     }
@@ -111,52 +97,53 @@ export default class Visit {
             document.addEventListener("mouseup", event => drag.mouseUp(event));
         });
     }
+    
     showMore() {
-        this.showMoreBtn.classList.add('hidden');
-        this.showLessBtn.classList.remove("hidden");
-        this.visit.querySelector(".extra-info").classList.remove("hidden");
-        this.visit.querySelector(".edit-panel").classList.remove("hidden");
+        this._showMoreBtn.classList.add("hidden");
+        this._showLessBtn.classList.remove("hidden");
+        this._visit.querySelector(".extra-info").classList.remove("hidden");
+        this._visit.querySelector(".edit-panel").classList.remove("hidden");
     }
 
     showLess() {
-        this.showLessBtn.classList.add("hidden");
-        this.showMoreBtn.classList.remove("hidden");
+        this._showLessBtn.classList.add("hidden");
+        this._showMoreBtn.classList.remove("hidden");
 
-        this.visit.querySelector(".extra-info").classList.add("hidden");
-        this.visit.querySelector(".edit-panel").classList.add("hidden");
+        this._visit.querySelector(".extra-info").classList.add("hidden");
+        this._visit.querySelector(".edit-panel").classList.add("hidden");
     }
 
     enableEditMode() {
-        new Modal("editVisit", this, this.data.id, this.data);
+        new Modal("editVisit", this, this._data.id, this._data);
     }
 
     updateValue(data,visit) {
-        this.data = data;
-        if (data.doctor==="Cardiologist") {
-            visit.visit.querySelector(".full-name").innerHTML = data.fullName;
-            visit.visit.querySelector(".age").innerHTML = data.age;
-            visit.visit.querySelector(".purpose-of-visit").innerHTML = data.purposeOfVisit;
-            visit.visit.querySelector(".blood-pressure").innerHTML = data.bloodPressure;
-            visit.visit.querySelector(".body-mass-index").innerHTML = data.bodyMassIndex;
-            visit.visit.querySelector(".past-diseases").innerHTML = data.pastIllnesses;
-            visit.visit.querySelector(".short-description").innerHTML = data.shortDiscriptionsOfVisit;
+        this._data = data;
+        if (data.doctor === "Cardiologist") {
+            visit._visit.querySelector(".full-name").innerHTML = data.fullName;
+            visit._visit.querySelector(".age").innerHTML = data.age;
+            visit._visit.querySelector(".purpose-of-visit").innerHTML = data.purposeOfVisit;
+            visit._visit.querySelector(".blood-pressure").innerHTML = data.bloodPressure;
+            visit._visit.querySelector(".body-mass-index").innerHTML = data.bodyMassIndex;
+            visit._visit.querySelector(".past-diseases").innerHTML = data.pastDiseases;
+            visit._visit.querySelector(".short-description").innerHTML = data.shortDiscriptionsOfVisit;
         }
-        if (data.doctor==="Dentist") {
-            visit.visit.querySelector(".full-name").innerHTML = data.fullName;
-            visit.visit.querySelector(".purpose-of-visit").innerHTML = data.purposeOfVisit;
-            visit.visit.querySelector(".short-description").innerHTML = data.shortDiscriptionsOfVisit;
-            visit.visit.querySelector(".date-of-previous-visit").innerHTML = data.dateOfPreviousVisit;
+        if (data.doctor === "Dentist") {
+            visit._visit.querySelector(".full-name").innerHTML = data.fullName;
+            visit._visit.querySelector(".purpose-of-visit").innerHTML = data.purposeOfVisit;
+            visit._visit.querySelector(".short-description").innerHTML = data.shortDiscriptionsOfVisit;
+            visit._visit.querySelector(".date-of-previous-visit").innerHTML = data.dateOfPreviousVisit;
         }
-        if (data.doctor==="Therapist") {
-            visit.visit.querySelector(".full-name").innerHTML = data.fullName;
-            visit.visit.querySelector(".age").innerHTML = data.age;
-            visit.visit.querySelector(".purpose-of-visit").innerHTML = data.purposeOfVisit;
-            visit.visit.querySelector(".short-description").innerHTML = data.shortDiscriptionsOfVisit;
+        if (data.doctor === "Therapist") {
+            visit._visit.querySelector(".full-name").innerHTML = data.fullName;
+            visit._visit.querySelector(".age").innerHTML = data.age;
+            visit._visit.querySelector(".purpose-of-visit").innerHTML = data.purposeOfVisit;
+            visit._visit.querySelector(".short-description").innerHTML = data.shortDiscriptionsOfVisit;
         }
     }
 
     removeVisit() {
-        new Request("delete", null, this.data.id)
+        new Request("delete", null, this._data.id)
             .then((response) => {
                 return response.text();
             })
@@ -165,13 +152,13 @@ export default class Visit {
     }
 
     destroy() {
-        this.visit.remove();
+        this._visit.remove();
 
-        if (this.container.children.length === 0) {
-            this.noVisitsNotice = document.createElement("div");
-            this.noVisitsNotice.classList.add("no-visits-notice");
-            this.noVisitsNotice.innerText = "No items have been added yet.";
-            this.container.append(this.noVisitsNotice);
+        if (this._container.children.length === 0) {
+            this._noVisitsNotice = document.createElement("div");
+            this._noVisitsNotice.classList.add("no-visits-notice");
+            this._noVisitsNotice.innerText = "No items have been added yet.";
+            this._container.append(this._noVisitsNotice);
         }
     }
 }
@@ -185,19 +172,19 @@ export class VisitCardiologist extends Visit {
     render () {
         super.render();
         const extraInfo = document.createElement("div");
-        extraInfo.classList.add('extra-info');
+        extraInfo.classList.add("extra-info");
         extraInfo.innerHTML = `
-        <p class="line-in-visit">Возраст: <span class="regular-text age">${this.age}</span></p>
-        <p class="line-in-visit">Цель визита: <span class="regular-text purpose-of-visit">${this.purposeOfVisit}</span></p>
-        <p class="line-in-visit">Обычное давление: <span class="regular-text blood-pressure">${this.bloodPressure}</span></p>
-        <p class="line-in-visit">Индекс массы тела: <span class="regular-text body-mass-index">${this.bodyMassIndex}</span></p>
-        <p class="line-in-visit">Перенесенные заболевания сердечно-сосудистой системы: <span class="regular-text past-diseases">${this.pastDiseases}</span></p>
-        <p class="line-in-visit">Краткое описание визита: <span class="regular-text short-description">${this.shortDiscriptionsOfVisit}</span></p>
-        <p class="line-in-visit">Срочность: <span class="regular-text urgency">${this.urgency}</span></p>
+        <p class="line-in-visit">Возраст: ${this._age}</p>
+        <p class="line-in-visit">Цель визита: ${this._purposeOfVisit}</p>
+        <p class="line-in-visit">Обычное давление: ${this._bloodPressure}</p>
+        <p class="line-in-visit">Индекс массы тела: ${this._bodyMassIndex}</p>
+        <p class="line-in-visit">Перенесенные заболевания сердечно-сосудистой системы: ${this._pastDiseases}</p>
+        <p class="line-in-visit">Краткое описание визита: ${this._shortDiscriptionsOfVisit}</p>
+        <p class="line-in-visit">Срочность: ${this._urgency}</p>
         `;
 
         extraInfo.classList.add("hidden");
-        this.visit.querySelector(".edit-panel").before(extraInfo);
+        this._visit.querySelector(".edit-panel").before(extraInfo);
     }
 }
 
@@ -210,16 +197,16 @@ export class VisitDentist extends Visit {
     render(){
         super.render();
         const extraInfo = document.createElement("div");
-        extraInfo.classList.add('extra-info');
+        extraInfo.classList.add("extra-info");
         extraInfo.innerHTML = `
-        <p class="line-in-visit">Цель визита: <span class="regular-text purpose-of-visit">${this.purposeOfVisit}</span></p>
-        <p class="line-in-visit">Дата последнего визита: <span class="regular-text date-of-previous-visit">${this.dateOfPreviousVisit}</span></p>
-        <p class="line-in-visit">Краткое описание визита: <span class="regular-text short-description">${this.shortDiscriptionsOfVisit}</span></p>
-        <p class="line-in-visit">Срочность: <span class="regular-text urgency">${this.urgency}</span></p>
+        <p class="line-in-visit">Цель визита: ${this._purposeOfVisit}</p>
+        <p class="line-in-visit">Дата последнего визита: ${this._dateOfPreviousVisit}</p>
+        <p class="line-in-visit">Краткое описание визита: ${this._shortDiscriptionsOfVisit}</p>
+        <p class="line-in-visit">Срочность: ${this._urgency}</p>
         `;
 
         extraInfo.classList.add("hidden");
-        this.visit.querySelector(".edit-panel").before(extraInfo);
+        this._visit.querySelector(".edit-panel").before(extraInfo);
     }
 }
 
@@ -232,15 +219,15 @@ export class VisitTherapist extends Visit {
     render(){
         super.render();
         const extraInfo = document.createElement("div");
-        extraInfo.classList.add('extra-info');
+        extraInfo.classList.add("extra-info");
         extraInfo.innerHTML = `
-        <p class="line-in-visit">Врзраст: <span class="regular-text age">${this.age}</span></p>
-        <p class="line-in-visit">Цель визита: <span class="regular-text purpose-of-visit">${this.purposeOfVisit}</span></p>
-        <p class="line-in-visit">Краткое описание визита: <span class="regular-text short-description">${this.shortDiscriptionsOfVisit}</span></p>
-        <p class="line-in-visit">Срочность: <span class="regular-text urgency">${this.urgency}</span></p>
+        <p class="line-in-visit">Врзраст: ${this._age}</p>
+        <p class="line-in-visit">Цель визита: ${this._purposeOfVisit}</p>
+        <p class="line-in-visit">Краткое описание визита: ${this._shortDiscriptionsOfVisit}</p>
+        <p class="line-in-visit">Срочность: ${this._urgency}</p>
         `;
 
         extraInfo.classList.add("hidden");
-        this.visit.querySelector(".edit-panel").before(extraInfo);
+        this._visit.querySelector(".edit-panel").before(extraInfo);
     }
 }

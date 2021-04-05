@@ -58,17 +58,17 @@ export default class DragAndDrop {
         const currentHeight = this.size.box.height;
 
         this.currentElem.style.position = "absolute";
-        this.currentElem.style.left = event.pageX - this.size.elem.width / 2 + 'px';
-        this.currentElem.style.top = event.pageY - this.size.elem.height / 2 + 'px';
+        this.currentElem.style.left = event.pageX - this.size.elem.width / 2 + "px";
+        this.currentElem.style.top = event.pageY - this.size.elem.height / 2 + "px";
 
         if(this.data.left <= 0)
             this.currentElem.style.left = 0;
         if(this.data.top <= 0)
             this.currentElem.style.top = 0;
         if(this.data.left + this.size.elem.width >= this.size.box.width)
-            this.currentElem.style.left = this.size.box.width - this.size.elem.width + 'px';
+            this.currentElem.style.left = this.size.box.width - this.size.elem.width + "px";
         if(this.data.top + document.documentElement.scrollTop + this.size.elem.height >= this.size.box.height)
-            this.currentElem.style.top = currentHeight - this.size.elem.height + 'px';
+            this.currentElem.style.top = currentHeight - this.size.elem.height + "px";
         }
     }
 
@@ -76,15 +76,4 @@ export default class DragAndDrop {
         this.dragging = false;
         document.onmousemove = null;
     }
-    }
-    function getCoords(elem) {
-        let box = elem.getBoundingClientRect();
-        return {
-        top: box.top + pageYOffset,
-        left: box.left + pageXOffset
-    };
 }
-    // const drag = new DragAndDrop(`#field`, `.m4`);
-
-    // document.addEventListener("mousedown", event => drag.mouseDown(event));
-    // document.addEventListener("mouseup", event => drag.mouseUp(event));

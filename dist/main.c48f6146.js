@@ -138,21 +138,28 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var Textarea = function Textarea(typeOfTextarea) {
   _classCallCheck(this, Textarea);
 
-  this.e = document.createElement("textarea");
+  this._elem = document.createElement("textarea");
 
   if (typeOfTextarea === "shortDiscriptionsOfVisit") {
-    this.e.classList = "textarea";
-    this.e.setAttribute("name", "shortDiscriptionsOfVisit");
-    this.e.setAttribute("placeholder", "Краткое описание визита");
-    return this.e;
+    this._elem.classList = "textarea";
+
+    this._elem.setAttribute("name", "shortDiscriptionsOfVisit");
+
+    this._elem.setAttribute("placeholder", "Краткое описание визита");
+
+    return this._elem;
   }
 
   if (typeOfTextarea === "pastDiseases") {
-    this.e.classList = "textarea";
-    this.e.setAttribute("name", "pastDiseases");
-    this.e.setAttribute("placeholder", "Перенесенные заболевания сердечно-сосудистой системы");
-    this.e.setAttribute("required", "required");
-    return this.e;
+    this._elem.classList = "textarea";
+
+    this._elem.setAttribute("name", "pastDiseases");
+
+    this._elem.setAttribute("placeholder", "Перенесенные заболевания сердечно-сосудистой системы");
+
+    this._elem.setAttribute("required", "required");
+
+    return this._elem;
   }
 };
 
@@ -161,33 +168,74 @@ exports.Textarea = Textarea;
 var Button = function Button(typeOfButton) {
   _classCallCheck(this, Button);
 
-  this.e = document.createElement("button");
+  this._elem = document.createElement("button");
 
   if (typeOfButton === "login") {
-    this.e.classList = "login-btn";
-    this.e.setAttribute("type", "submit");
-    this.e.innerText = "Войти";
-    return this.e;
+    this._elem.classList = "login-btn";
+
+    this._elem.setAttribute("type", "submit");
+
+    this._elem.innerText = "Войти";
+    return this._elem;
   }
 
   if (typeOfButton === "createVisitModalBtn") {
-    this.e.classList = "create-visit-modal-btn";
-    this.e.setAttribute("type", "submit");
-    this.e.innerText = "Создать";
-    return this.e;
+    this._elem.classList = "create-visit-modal-btn";
+
+    this._elem.setAttribute("type", "submit");
+
+    this._elem.innerText = "Создать";
+    return this._elem;
   }
 
   if (typeOfButton === "editVisitModalBtn") {
-    this.e.classList = "edit-visit-modal-btn";
-    this.e.setAttribute("type", "submit");
-    this.e.innerText = "Редактировать";
-    return this.e;
-  } // if (typeOfButton === "signIn") {
-  //     this.e.classList = "btn_sign_in"
-  //     this.e.innerHTML = "Sign in"
-  //     return this.e;
-  // }
+    this._elem.classList = "edit-visit-modal-btn";
 
+    this._elem.setAttribute("type", "submit");
+
+    this._elem.innerText = "Редактировать";
+    return this._elem;
+  }
+
+  if (typeOfButton === "signIn") {
+    this._elem.classList = "sign-in-btn";
+    this._elem.innerHTML = "Войти";
+    return this._elem;
+  }
+
+  if (typeOfButton === "createVisit") {
+    this._elem.classList = "create-visit-btn";
+    this._elem.innerHTML = "Создать визит";
+    this._elem.style.display = "none";
+    return this._elem;
+  }
+
+  if (typeOfButton === "editVisitButton") {
+    this._elem.classList = "edit-visit-button";
+    this._elem.innerHTML = "Редактировать";
+    return this._elem;
+  }
+
+  if (typeOfButton === "removeVisitButton") {
+    this._elem.classList = "remove-visit-button";
+    this._elem.innerHTML = "Удалить визит";
+    return this._elem;
+  }
+
+  if (typeOfButton === "showMoreButton") {
+    this._elem.classList = "show-more-btn";
+    this._elem.innerHTML = "Показать больше";
+    return this._elem;
+  }
+
+  if (typeOfButton === "showLessButton") {
+    this._elem.classList = "show-less-btn";
+    this._elem.innerHTML = "Показать меньше";
+
+    this._elem.classList.add("hidden");
+
+    return this._elem;
+  }
 };
 
 exports.Button = Button;
@@ -196,100 +244,158 @@ var Input = /*#__PURE__*/function () {
   function Input(typeOfInput) {
     _classCallCheck(this, Input);
 
-    this.e = document.createElement('input');
+    this._elem = document.createElement("input");
 
     if (typeOfInput === "email") {
-      this.e.setAttribute("type", "text");
-      this.e.setAttribute("name", "email");
-      this.e.setAttribute("id", "email");
-      this.e.classList = "email-input";
-      this.e.setAttribute("required", "required");
-      this.inputLabel = document.createElement("label");
-      this.inputLabel.classList = "input-label";
-      this.inputLabel.innerText = "E-mail";
-      this.inputLabel.append(this.e);
-      return this.inputLabel;
+      this._elem.setAttribute("type", "text");
+
+      this._elem.setAttribute("name", "email");
+
+      this._elem.setAttribute("id", "email");
+
+      this._elem.classList = "email-input";
+
+      this._elem.setAttribute("required", "required");
+
+      this._inputLabel = document.createElement("label");
+      this._inputLabel.classList = "input-label";
+      this._inputLabel.innerText = "E-mail";
+
+      this._inputLabel.append(this._elem);
+
+      return this._inputLabel;
     }
 
     if (typeOfInput === "password") {
-      this.e.setAttribute("type", "password");
-      this.e.setAttribute("name", "password");
-      this.e.setAttribute("id", "password");
-      this.e.classList.add("password-input");
-      this.e.setAttribute("required", "required");
-      this.inputLabel = document.createElement("label");
-      this.inputLabel.classList.add("input-label");
-      this.inputLabel.innerText = "Password";
-      this.inputLabel.append(this.e);
-      return this.inputLabel;
+      this._elem.setAttribute("type", "password");
+
+      this._elem.setAttribute("name", "password");
+
+      this._elem.setAttribute("id", "password");
+
+      this._elem.classList.add("password-input");
+
+      this._elem.setAttribute("required", "required");
+
+      this._inputLabel = document.createElement("label");
+
+      this._inputLabel.classList.add("input-label");
+
+      this._inputLabel.innerText = "Password";
+
+      this._inputLabel.append(this._elem);
+
+      return this._inputLabel;
     }
 
     if (typeOfInput === "fullName") {
-      this.e.setAttribute("type", "text");
-      this.e.setAttribute("name", "fullName");
-      this.e.setAttribute("required", "required");
-      this.e.setAttribute("placeholder", "ФИО");
-      this.e.classList.add("one-line-input");
-      return this.e;
+      this._elem.setAttribute("type", "text");
+
+      this._elem.setAttribute("name", "fullName");
+
+      this._elem.setAttribute("required", "required");
+
+      this._elem.setAttribute("placeholder", "ФИО");
+
+      this._elem.classList.add("one-line-input");
+
+      return this._elem;
     }
 
     if (typeOfInput === "age") {
-      this.e.setAttribute("type", "number");
-      this.e.setAttribute("name", "age");
-      this.e.setAttribute("required", "required");
-      this.e.setAttribute("placeholder", "Возраст");
-      this.e.classList.add("one-line-input");
-      this.checkAgeBound = this.checkAge.bind(this);
-      this.e.addEventListener("focusout", this.checkAgeBound);
-      return this.e;
+      this._elem.setAttribute("type", "number");
+
+      this._elem.setAttribute("name", "age");
+
+      this._elem.setAttribute("required", "required");
+
+      this._elem.setAttribute("placeholder", "Возраст");
+
+      this._elem.classList.add("one-line-input");
+
+      this._checkAgeBind = this._checkAge.bind(this);
+
+      this._elem.addEventListener("focusout", this._checkAgeBind);
+
+      return this._elem;
     }
 
     if (typeOfInput === "purposeOfVisit") {
-      this.e.setAttribute("type", "text");
-      this.e.setAttribute("name", "purposeOfVisit");
-      this.e.setAttribute("required", "required");
-      this.e.setAttribute("placeholder", "Цель визита");
-      this.e.classList.add("one-line-input");
-      return this.e;
+      this._elem.setAttribute("type", "text");
+
+      this._elem.setAttribute("name", "purposeOfVisit");
+
+      this._elem.setAttribute("required", "required");
+
+      this._elem.setAttribute("placeholder", "Цель визита");
+
+      this._elem.classList.add("one-line-input");
+
+      return this._elem;
     }
 
     if (typeOfInput === "bloodPressure") {
-      this.e.setAttribute("type", "text");
-      this.e.setAttribute("name", "bloodPressure");
-      this.e.setAttribute("required", "required");
-      this.e.setAttribute("placeholder", "Обычное давление");
-      this.e.classList.add("one-line-input");
-      return this.e;
+      this._elem.setAttribute("type", "text");
+
+      this._elem.setAttribute("name", "bloodPressure");
+
+      this._elem.setAttribute("required", "required");
+
+      this._elem.setAttribute("placeholder", "Обычное давление");
+
+      this._elem.classList.add("one-line-input");
+
+      return this._elem;
     }
 
     if (typeOfInput === "bodyMassIndex") {
-      this.e.setAttribute("type", "text");
-      this.e.setAttribute("name", "bodyMassIndex");
-      this.e.setAttribute("required", "required");
-      this.e.setAttribute("placeholder", "Индекс массы тела");
-      this.e.classList.add("one-line-input");
-      return this.e;
+      this._elem.setAttribute("type", "text");
+
+      this._elem.setAttribute("name", "bodyMassIndex");
+
+      this._elem.setAttribute("required", "required");
+
+      this._elem.setAttribute("placeholder", "Индекс массы тела");
+
+      this._elem.classList.add("one-line-input");
+
+      return this._elem;
     }
 
     if (typeOfInput === "dateOfPreviousVisit") {
-      this.e.setAttribute("type", "text");
-      this.e.setAttribute("name", "dateOfPreviousVisit");
-      this.e.setAttribute("required", "required");
-      this.e.setAttribute("placeholder", "Дата последнего визита");
-      this.e.classList.add("one-line-input");
-      return this.e;
+      this._elem.setAttribute("type", "text");
+
+      this._elem.setAttribute("name", "dateOfPreviousVisit");
+
+      this._elem.setAttribute("required", "required");
+
+      this._elem.setAttribute("placeholder", "Дата последнего визита");
+
+      this._elem.classList.add("one-line-input");
+
+      return this._elem;
+    }
+
+    if (typeOfInput === "search") {
+      this._elem.setAttribute("type", "text");
+
+      this._elem.setAttribute("placeholder", "ФИО, доктор, описание");
+
+      this._elem.classList.add("filter-live-search");
+
+      return this._elem;
     }
   }
 
   _createClass(Input, [{
-    key: "checkAge",
-    value: function checkAge() {
-      if (this.e.value < 5) {
+    key: "_checkAge",
+    value: function _checkAge() {
+      if (this._elem.value < 5) {
         alert("Возраст должен быть не меньше 5 лет");
-        this.e.value = "";
-      } else if (this.e.value > 100) {
+        this._elem.value = "";
+      } else if (this._elem.value > 100) {
         alert("Возраст должен быть не больше 100 лет");
-        this.e.value = "";
+        this._elem.value = "";
       }
     }
   }]);
@@ -304,31 +410,51 @@ var Select = /*#__PURE__*/function () {
     _classCallCheck(this, Select);
 
     if (typeOfSelect === "doctor") {
-      this.e = document.createElement("select");
-      this.e.classList = "doctor-select";
-      this.e.setAttribute("required", "required");
-      this.e.insertAdjacentHTML("afterbegin", "<option selected disabled value=\"\">\u0414\u043E\u043A\u0442\u043E\u0440</option>\n                 <option>Cardiologist</option>\n                 <option>Dentist</option>\n                 <option>Therapist</option>");
-      this.onDoctorSelectBound = this.onDoctorSelect.bind(this);
-      this.e.addEventListener("change", this.onDoctorSelectBound);
-      return this.e;
+      this._elem = document.createElement("select");
+      this._elem.classList = "doctor-select";
+
+      this._elem.setAttribute("required", "required");
+
+      this._elem.insertAdjacentHTML("afterbegin", "<option selected disabled value=\"\">\u0414\u043E\u043A\u0442\u043E\u0440</option>\n                 <option>Cardiologist</option>\n                 <option>Dentist</option>\n                 <option>Therapist</option>");
+
+      this._onDoctorSelectBind = this._onDoctorSelect.bind(this);
+
+      this._elem.addEventListener("change", this._onDoctorSelectBind);
+
+      return this._elem;
     }
 
     if (typeOfSelect === "urgency") {
-      this.e = document.createElement("select");
-      this.e.classList = "urgency-select";
-      this.e.setAttribute("required", "required");
-      this.e.insertAdjacentHTML("afterbegin", "<option selected disabled value=\"\">\u0421\u0440\u043E\u0447\u043D\u043E\u0441\u0442\u044C</option>\n                 <option>Regular</option>\n                 <option>Priority</option>\n                 <option>Urgent</option>\n            ");
-      return this.e;
+      this._elem = document.createElement("select");
+      this._elem.classList = "urgency-select";
+
+      this._elem.setAttribute("required", "required");
+
+      this._elem.insertAdjacentHTML("afterbegin", "<option selected disabled value=\"\">\u0421\u0440\u043E\u0447\u043D\u043E\u0441\u0442\u044C</option>\n                 <option>Regular</option>\n                 <option>Priority</option>\n                 <option>Urgent</option>\n            ");
+
+      return this._elem;
+    }
+
+    if (typeOfSelect === "searchUrgency") {
+      this._elem = document.createElement("select");
+      this._elem.classList = "filter-select-urgency";
+      return this._elem;
+    }
+
+    if (typeOfSelect === "searchStatus") {
+      this._elem = document.createElement("select");
+      this._elem.classList = "filter-select-status";
+      return this._elem;
     }
   }
 
   _createClass(Select, [{
-    key: "onDoctorSelect",
-    value: function onDoctorSelect() {
+    key: "_onDoctorSelect",
+    value: function _onDoctorSelect() {
       var selectedIndex = document.querySelector(".doctor-select").selectedIndex;
       var options = document.querySelector(".doctor-select").options;
       var selectedOption = options[selectedIndex].value;
-      var createVisitForm = document.querySelector('.createVisit-form');
+      var createVisitForm = document.querySelector(".createVisit-form");
 
       while (createVisitForm.children.length > 2) {
         createVisitForm.removeChild(createVisitForm.lastChild);
@@ -358,10 +484,10 @@ exports.Select = Select;
 var InputFieldTitle = function InputFieldTitle(fieldName) {
   _classCallCheck(this, InputFieldTitle);
 
-  this.e = document.createElement("span");
-  this.e.classList.add("field-name");
-  this.e.innerText = fieldName;
-  return this.e;
+  this._elem = document.createElement("span");
+  this._elem.classList = "field-name";
+  this._elem.innerText = fieldName;
+  return this._elem;
 };
 
 exports.InputFieldTitle = InputFieldTitle;
@@ -384,30 +510,30 @@ var Request = /*#__PURE__*/function () {
     _classCallCheck(this, Request);
 
     if (typeOfRequest === "login") {
-      return this.login(data);
+      return this._login(data);
     }
 
     if (typeOfRequest === "post") {
-      return this.post(data);
+      return this._post(data);
     }
 
     if (typeOfRequest === "put") {
-      return this.put(data, id);
+      return this._put(data, id);
     }
 
     if (typeOfRequest === "delete") {
-      return this.delete(data, id);
+      return this._delete(data, id);
     }
 
     if (typeOfRequest === "getAllVisits") {
-      return this.getAllVisits();
+      return this._getAllVisits();
     }
   }
 
   _createClass(Request, [{
-    key: "login",
-    value: function login(data) {
-      return fetch('https://ajax.test-danit.com/api/v2/cards/login', {
+    key: "_login",
+    value: function _login(data) {
+      return fetch("https://ajax.test-danit.com/api/v2/cards/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -416,7 +542,7 @@ var Request = /*#__PURE__*/function () {
       }).then(function (data) {
         if (!data.ok) {
           var errorNote = document.querySelector(".error-note");
-          errorNote.style.visibility = 'visible';
+          errorNote.style.visibility = "visible";
           errorNote.style.opacity = "1";
           throw new Error("Wrong email or password");
         } else {
@@ -427,13 +553,13 @@ var Request = /*#__PURE__*/function () {
       }); // .then(token => console.log(token))
     }
   }, {
-    key: "post",
-    value: function post(data) {
-      return fetch('https://ajax.test-danit.com/api/v2/cards', {
+    key: "_post",
+    value: function _post(data) {
+      return fetch("https://ajax.test-danit.com/api/v2/cards", {
         method: "POST",
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': "Bearer ".concat(localStorage.getItem('token'))
+          "Content-Type": "application/json",
+          "Authorization": "Bearer ".concat(localStorage.getItem("token"))
         },
         body: JSON.stringify(data)
       }).then(function (response) {
@@ -441,37 +567,37 @@ var Request = /*#__PURE__*/function () {
       });
     }
   }, {
-    key: "put",
-    value: function put(data, id) {
-      return fetch('https://ajax.test-danit.com/api/v2/cards' + id, {
+    key: "_put",
+    value: function _put(data, id) {
+      return fetch("https://ajax.test-danit.com/api/v2/cards/" + id, {
         method: "PUT",
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': "Bearer ".concat(localStorage.getItem('token'))
+          "Content-Type": "application/json",
+          "Authorization": "Bearer ".concat(localStorage.getItem("token"))
         },
         body: JSON.stringify(data)
       });
     }
   }, {
-    key: "delete",
+    key: "_delete",
     value: function _delete(data, id) {
-      return fetch('https://ajax.test-danit.com/api/v2/cards/' + id, {
+      return fetch("https://ajax.test-danit.com/api/v2/cards/" + id, {
         method: "DELETE",
         // mode: "no-cors",
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': "Bearer ".concat(localStorage.getItem('token'))
+          "Content-Type": "application/json",
+          "Authorization": "Bearer ".concat(localStorage.getItem("token"))
         }
       });
     }
   }, {
-    key: "getAllVisits",
-    value: function getAllVisits() {
-      return fetch('https://ajax.test-danit.com/api/v2/cards', {
+    key: "_getAllVisits",
+    value: function _getAllVisits() {
+      return fetch("https://ajax.test-danit.com/api/v2/cards", {
         method: "GET",
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': "Bearer ".concat(localStorage.getItem('token'))
+          "Content-Type": "application/json",
+          "Authorization": "Bearer ".concat(localStorage.getItem("token"))
         }
       }).then(function (response) {
         return response.json();
@@ -560,12 +686,12 @@ var DragAndDrop = /*#__PURE__*/function () {
         if (!_this.dragging) return;
         var currentHeight = _this.size.box.height;
         _this.currentElem.style.position = "absolute";
-        _this.currentElem.style.left = event.pageX - _this.size.elem.width / 2 + 'px';
-        _this.currentElem.style.top = event.pageY - _this.size.elem.height / 2 + 'px';
+        _this.currentElem.style.left = event.pageX - _this.size.elem.width / 2 + "px";
+        _this.currentElem.style.top = event.pageY - _this.size.elem.height / 2 + "px";
         if (_this.data.left <= 0) _this.currentElem.style.left = 0;
         if (_this.data.top <= 0) _this.currentElem.style.top = 0;
-        if (_this.data.left + _this.size.elem.width >= _this.size.box.width) _this.currentElem.style.left = _this.size.box.width - _this.size.elem.width + 'px';
-        if (_this.data.top + document.documentElement.scrollTop + _this.size.elem.height >= _this.size.box.height) _this.currentElem.style.top = currentHeight - _this.size.elem.height + 'px';
+        if (_this.data.left + _this.size.elem.width >= _this.size.box.width) _this.currentElem.style.left = _this.size.box.width - _this.size.elem.width + "px";
+        if (_this.data.top + document.documentElement.scrollTop + _this.size.elem.height >= _this.size.box.height) _this.currentElem.style.top = currentHeight - _this.size.elem.height + "px";
       };
     }
   }, {
@@ -580,16 +706,6 @@ var DragAndDrop = /*#__PURE__*/function () {
 }();
 
 exports.default = DragAndDrop;
-
-function getCoords(elem) {
-  var box = elem.getBoundingClientRect();
-  return {
-    top: box.top + pageYOffset,
-    left: box.left + pageXOffset
-  };
-} // const drag = new DragAndDrop(`#field`, `.m4`);
-// document.addEventListener("mousedown", event => drag.mouseDown(event));
-// document.addEventListener("mouseup", event => drag.mouseUp(event));
 },{}],"src/js/visit.js":[function(require,module,exports) {
 "use strict";
 
@@ -603,6 +719,8 @@ var _request = _interopRequireDefault(require("./request.js"));
 var _modal = _interopRequireDefault(require("./modal.js"));
 
 var _drag = _interopRequireDefault(require("./drag.js"));
+
+var _classes = require("./classes.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -636,116 +754,134 @@ var Visit = /*#__PURE__*/function () {
   function Visit(visit) {
     _classCallCheck(this, Visit);
 
-    this.data = visit;
-    this.age = visit.age;
-    this.purposeOfVisit = visit.purposeOfVisit;
-    this.bloodPressure = visit.bloodPressure;
-    this.bodyMassIndex = visit.bodyMassIndex;
-    this.pastDiseases = visit.pastDiseases;
-    this.shortDiscriptionsOfVisit = visit.shortDiscriptionsOfVisit;
-    this.urgency = visit.urgency;
-    this.dateOfPreviousVisit = visit.dateOfPreviousVisit;
+    this._data = visit;
+    this._age = visit.age;
+    this._purposeOfVisit = visit.purposeOfVisit;
+    this._bloodPressure = visit.bloodPressure;
+    this._bodyMassIndex = visit.bodyMassIndex;
+    this._pastDiseases = visit.pastDiseases;
+    this._shortDiscriptionsOfVisit = visit.shortDiscriptionsOfVisit;
+    this._urgency = visit.urgency;
+    this._dateOfPreviousVisit = visit.dateOfPreviousVisit;
   }
 
   _createClass(Visit, [{
     key: "render",
     value: function render(visit) {
-      this.container = document.querySelector(".visits");
-      this.visit = document.createElement("div");
-      this.visit.classList = "visit-card";
-      this.visitIdContainer = document.createElement("p");
-      this.visitIdContainer.classList = "visit-id-container";
-      this.visitIdContainer.innerText = "ID: ".concat(this.data.id);
-      this.fullName = document.createElement("p");
-      this.fullName.classList.add("full-name-container");
-      this.fullName.innerHTML = "\u0424\u0418\u041E: <span class=\"full-name\">".concat(this.data.fullName, "</span>");
-      this.doctor = document.createElement("p");
-      this.doctor.classList.add("doctor");
-      this.doctor.innerText = "\u0414\u043E\u043A\u0442\u043E\u0440: ".concat(this.data.doctor);
-      this.showMoreBtn = document.createElement("button");
-      this.showMoreBtn.classList.add("show-more-btn");
-      this.showMoreBtn.setAttribute("vertical-align", "middle");
-      this.showMoreBtn.insertAdjacentHTML("afterbegin", "<span>Показать больше</span>");
-      this.showMoreBound = this.showMore.bind(this);
-      this.showMoreBtn.addEventListener('click', this.showMoreBound);
-      this.visit.append(this.visitIdContainer);
-      this.visit.append(this.fullName);
-      this.visit.append(this.doctor);
-      this.visit.append(this.showMoreBtn);
-      this.showLessBtn = document.createElement("button");
-      this.showLessBtn.classList.add("show-less-btn");
-      this.showLessBtn.setAttribute("vertical-align", "middle");
-      this.showLessBtn.insertAdjacentHTML("afterbegin", "<span>Показать меньше</span>");
-      this.showLessBtn.classList.add("hidden");
-      this.showLessBound = this.showLess.bind(this);
-      this.showLessBtn.addEventListener("click", this.showLessBound);
-      this.editPanel = document.createElement("div");
-      this.editPanel.classList.add('edit-panel');
-      this.editPanel.classList.add('hidden');
-      this.editVisitIcon = document.createElement("button");
-      this.editVisitIcon.classList.add("edit-visit-button");
-      this.editVisitIcon.innerHTML = "Редактировать";
-      this.enableEditModeBound = this.enableEditMode.bind(this);
-      this.editVisitIcon.addEventListener("click", this.enableEditModeBound);
-      this.removeVisitIcon = document.createElement("button");
-      this.removeVisitIcon.classList.add("remove-visit-button");
-      this.removeVisitIcon.innerHTML = "Удалить визит";
-      this.removeVisitBound = this.removeVisit.bind(this);
-      this.removeVisitIcon.addEventListener("click", this.removeVisitBound);
-      this.editPanel.append(this.editVisitIcon);
-      this.editPanel.append(this.removeVisitIcon);
-      this.visit.append(this.editPanel);
-      this.visit.append(this.showLessBtn);
-      this.container.append(this.visit);
+      this._container = document.querySelector(".visits");
+      this._visit = document.createElement("div");
+      this._visit.classList = "visit-card";
+      this._visitIdContainer = document.createElement("p");
+      this._visitIdContainer.classList = "visit-id-container";
+      this._visitIdContainer.innerText = "ID: ".concat(this._data.id);
+      this._fullName = document.createElement("p");
+
+      this._fullName.classList.add("full-name-container");
+
+      this._fullName.innerHTML = "\u0424\u0418\u041E: <span class=\"full-name\">".concat(this._data.fullName, "</span>");
+      this._doctor = document.createElement("p");
+
+      this._doctor.classList.add("doctor");
+
+      this._doctor.innerText = "\u0414\u043E\u043A\u0442\u043E\u0440: ".concat(this._data.doctor);
+      this._showMoreBtn = new _classes.Button("showMoreButton");
+      this._showMoreBind = this.showMore.bind(this);
+
+      this._showMoreBtn.addEventListener("click", this._showMoreBind);
+
+      this._visit.append(this._visitIdContainer);
+
+      this._visit.append(this._fullName);
+
+      this._visit.append(this._doctor);
+
+      this._visit.append(this._showMoreBtn);
+
+      this._showLessBtn = new _classes.Button("showLessButton");
+      this._showLessBind = this.showLess.bind(this);
+
+      this._showLessBtn.addEventListener("click", this._showLessBind);
+
+      this._editPanel = document.createElement("div");
+
+      this._editPanel.classList.add("edit-panel");
+
+      this._editPanel.classList.add("hidden");
+
+      this._editVisitIcon = new _classes.Button("editVisitButton");
+      this._enableEditModeBind = this.enableEditMode.bind(this);
+
+      this._editVisitIcon.addEventListener("click", this._enableEditModeBind);
+
+      this._removeVisitIcon = new _classes.Button("removeVisitButton");
+      this._removeVisitBind = this.removeVisit.bind(this);
+
+      this._removeVisitIcon.addEventListener("click", this._removeVisitBind);
+
+      this._editPanel.append(this._editVisitIcon);
+
+      this._editPanel.append(this._removeVisitIcon);
+
+      this._visit.append(this._editPanel);
+
+      this._visit.append(this._showLessBtn);
+
+      this._container.append(this._visit);
     }
   }, {
     key: "showMore",
     value: function showMore() {
-      this.showMoreBtn.classList.add('hidden');
-      this.showLessBtn.classList.remove("hidden");
-      this.visit.querySelector(".extra-info").classList.remove("hidden");
-      this.visit.querySelector(".edit-panel").classList.remove("hidden");
+      this._showMoreBtn.classList.add("hidden");
+
+      this._showLessBtn.classList.remove("hidden");
+
+      this._visit.querySelector(".extra-info").classList.remove("hidden");
+
+      this._visit.querySelector(".edit-panel").classList.remove("hidden");
     }
   }, {
     key: "showLess",
     value: function showLess() {
-      this.showLessBtn.classList.add("hidden");
-      this.showMoreBtn.classList.remove("hidden");
-      this.visit.querySelector(".extra-info").classList.add("hidden");
-      this.visit.querySelector(".edit-panel").classList.add("hidden");
+      this._showLessBtn.classList.add("hidden");
+
+      this._showMoreBtn.classList.remove("hidden");
+
+      this._visit.querySelector(".extra-info").classList.add("hidden");
+
+      this._visit.querySelector(".edit-panel").classList.add("hidden");
     }
   }, {
     key: "enableEditMode",
     value: function enableEditMode() {
-      new _modal.default("editVisit", this, this.data.id, this.data);
+      new _modal.default("editVisit", this, this._data.id, this._data);
     }
   }, {
     key: "updateValue",
     value: function updateValue(data, visit) {
-      this.data = data;
+      this._data = data;
 
       if (data.doctor === "Cardiologist") {
-        visit.visit.querySelector(".full-name").innerHTML = data.fullName;
-        visit.visit.querySelector(".age").innerHTML = data.age;
-        visit.visit.querySelector(".purpose-of-visit").innerHTML = data.purposeOfVisit;
-        visit.visit.querySelector(".blood-pressure").innerHTML = data.bloodPressure;
-        visit.visit.querySelector(".body-mass-index").innerHTML = data.bodyMassIndex;
-        visit.visit.querySelector(".past-diseases").innerHTML = data.pastIllnesses;
-        visit.visit.querySelector(".short-description").innerHTML = data.shortDiscriptionsOfVisit;
+        visit._visit.querySelector(".full-name").innerHTML = data.fullName;
+        visit._visit.querySelector(".age").innerHTML = data.age;
+        visit._visit.querySelector(".purpose-of-visit").innerHTML = data.purposeOfVisit;
+        visit._visit.querySelector(".blood-pressure").innerHTML = data.bloodPressure;
+        visit._visit.querySelector(".body-mass-index").innerHTML = data.bodyMassIndex;
+        visit._visit.querySelector(".past-diseases").innerHTML = data.pastDiseases;
+        visit._visit.querySelector(".short-description").innerHTML = data.shortDiscriptionsOfVisit;
       }
 
       if (data.doctor === "Dentist") {
-        visit.visit.querySelector(".full-name").innerHTML = data.fullName;
-        visit.visit.querySelector(".purpose-of-visit").innerHTML = data.purposeOfVisit;
-        visit.visit.querySelector(".short-description").innerHTML = data.shortDiscriptionsOfVisit;
-        visit.visit.querySelector(".date-of-previous-visit").innerHTML = data.dateOfPreviousVisit;
+        visit._visit.querySelector(".full-name").innerHTML = data.fullName;
+        visit._visit.querySelector(".purpose-of-visit").innerHTML = data.purposeOfVisit;
+        visit._visit.querySelector(".short-description").innerHTML = data.shortDiscriptionsOfVisit;
+        visit._visit.querySelector(".date-of-previous-visit").innerHTML = data.dateOfPreviousVisit;
       }
 
       if (data.doctor === "Therapist") {
-        visit.visit.querySelector(".full-name").innerHTML = data.fullName;
-        visit.visit.querySelector(".age").innerHTML = data.age;
-        visit.visit.querySelector(".purpose-of-visit").innerHTML = data.purposeOfVisit;
-        visit.visit.querySelector(".short-description").innerHTML = data.shortDiscriptionsOfVisit;
+        visit._visit.querySelector(".full-name").innerHTML = data.fullName;
+        visit._visit.querySelector(".age").innerHTML = data.age;
+        visit._visit.querySelector(".purpose-of-visit").innerHTML = data.purposeOfVisit;
+        visit._visit.querySelector(".short-description").innerHTML = data.shortDiscriptionsOfVisit;
       }
     }
   }, {
@@ -753,7 +889,7 @@ var Visit = /*#__PURE__*/function () {
     value: function removeVisit() {
       var _this = this;
 
-      new _request.default("delete", null, this.data.id).then(function (response) {
+      new _request.default("delete", null, this._data.id).then(function (response) {
         return response.text();
       }).then(function () {
         _this.destroy();
@@ -764,13 +900,16 @@ var Visit = /*#__PURE__*/function () {
   }, {
     key: "destroy",
     value: function destroy() {
-      this.visit.remove();
+      this._visit.remove();
 
-      if (this.container.children.length === 0) {
-        this.noVisitsNotice = document.createElement("div");
-        this.noVisitsNotice.classList.add("no-visits-notice");
-        this.noVisitsNotice.innerText = "No items have been added yet.";
-        this.container.append(this.noVisitsNotice);
+      if (this._container.children.length === 0) {
+        this._noVisitsNotice = document.createElement("div");
+
+        this._noVisitsNotice.classList.add("no-visits-notice");
+
+        this._noVisitsNotice.innerText = "No items have been added yet.";
+
+        this._container.append(this._noVisitsNotice);
       }
     }
   }], [{
@@ -835,10 +974,11 @@ var VisitCardiologist = /*#__PURE__*/function (_Visit) {
       _get(_getPrototypeOf(VisitCardiologist.prototype), "render", this).call(this);
 
       var extraInfo = document.createElement("div");
-      extraInfo.classList.add('extra-info');
-      extraInfo.innerHTML = "\n        <p class=\"line-in-visit\">\u0412\u043E\u0437\u0440\u0430\u0441\u0442: <span class=\"regular-text age\">".concat(this.age, "</span></p>\n        <p class=\"line-in-visit\">\u0426\u0435\u043B\u044C \u0432\u0438\u0437\u0438\u0442\u0430: <span class=\"regular-text purpose-of-visit\">").concat(this.purposeOfVisit, "</span></p>\n        <p class=\"line-in-visit\">\u041E\u0431\u044B\u0447\u043D\u043E\u0435 \u0434\u0430\u0432\u043B\u0435\u043D\u0438\u0435: <span class=\"regular-text blood-pressure\">").concat(this.bloodPressure, "</span></p>\n        <p class=\"line-in-visit\">\u0418\u043D\u0434\u0435\u043A\u0441 \u043C\u0430\u0441\u0441\u044B \u0442\u0435\u043B\u0430: <span class=\"regular-text body-mass-index\">").concat(this.bodyMassIndex, "</span></p>\n        <p class=\"line-in-visit\">\u041F\u0435\u0440\u0435\u043D\u0435\u0441\u0435\u043D\u043D\u044B\u0435 \u0437\u0430\u0431\u043E\u043B\u0435\u0432\u0430\u043D\u0438\u044F \u0441\u0435\u0440\u0434\u0435\u0447\u043D\u043E-\u0441\u043E\u0441\u0443\u0434\u0438\u0441\u0442\u043E\u0439 \u0441\u0438\u0441\u0442\u0435\u043C\u044B: <span class=\"regular-text past-diseases\">").concat(this.pastDiseases, "</span></p>\n        <p class=\"line-in-visit\">\u041A\u0440\u0430\u0442\u043A\u043E\u0435 \u043E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u0432\u0438\u0437\u0438\u0442\u0430: <span class=\"regular-text short-description\">").concat(this.shortDiscriptionsOfVisit, "</span></p>\n        <p class=\"line-in-visit\">\u0421\u0440\u043E\u0447\u043D\u043E\u0441\u0442\u044C: <span class=\"regular-text urgency\">").concat(this.urgency, "</span></p>\n        ");
+      extraInfo.classList.add("extra-info");
+      extraInfo.innerHTML = "\n        <p class=\"line-in-visit\">\u0412\u043E\u0437\u0440\u0430\u0441\u0442: ".concat(this._age, "</p>\n        <p class=\"line-in-visit\">\u0426\u0435\u043B\u044C \u0432\u0438\u0437\u0438\u0442\u0430: ").concat(this._purposeOfVisit, "</p>\n        <p class=\"line-in-visit\">\u041E\u0431\u044B\u0447\u043D\u043E\u0435 \u0434\u0430\u0432\u043B\u0435\u043D\u0438\u0435: ").concat(this._bloodPressure, "</p>\n        <p class=\"line-in-visit\">\u0418\u043D\u0434\u0435\u043A\u0441 \u043C\u0430\u0441\u0441\u044B \u0442\u0435\u043B\u0430: ").concat(this._bodyMassIndex, "</p>\n        <p class=\"line-in-visit\">\u041F\u0435\u0440\u0435\u043D\u0435\u0441\u0435\u043D\u043D\u044B\u0435 \u0437\u0430\u0431\u043E\u043B\u0435\u0432\u0430\u043D\u0438\u044F \u0441\u0435\u0440\u0434\u0435\u0447\u043D\u043E-\u0441\u043E\u0441\u0443\u0434\u0438\u0441\u0442\u043E\u0439 \u0441\u0438\u0441\u0442\u0435\u043C\u044B: ").concat(this._pastDiseases, "</p>\n        <p class=\"line-in-visit\">\u041A\u0440\u0430\u0442\u043A\u043E\u0435 \u043E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u0432\u0438\u0437\u0438\u0442\u0430: ").concat(this._shortDiscriptionsOfVisit, "</p>\n        <p class=\"line-in-visit\">\u0421\u0440\u043E\u0447\u043D\u043E\u0441\u0442\u044C: ").concat(this._urgency, "</p>\n        ");
       extraInfo.classList.add("hidden");
-      this.visit.querySelector(".edit-panel").before(extraInfo);
+
+      this._visit.querySelector(".edit-panel").before(extraInfo);
     }
   }]);
 
@@ -870,10 +1010,11 @@ var VisitDentist = /*#__PURE__*/function (_Visit2) {
       _get(_getPrototypeOf(VisitDentist.prototype), "render", this).call(this);
 
       var extraInfo = document.createElement("div");
-      extraInfo.classList.add('extra-info');
-      extraInfo.innerHTML = "\n        <p class=\"line-in-visit\">\u0426\u0435\u043B\u044C \u0432\u0438\u0437\u0438\u0442\u0430: <span class=\"regular-text purpose-of-visit\">".concat(this.purposeOfVisit, "</span></p>\n        <p class=\"line-in-visit\">\u0414\u0430\u0442\u0430 \u043F\u043E\u0441\u043B\u0435\u0434\u043D\u0435\u0433\u043E \u0432\u0438\u0437\u0438\u0442\u0430: <span class=\"regular-text date-of-previous-visit\">").concat(this.dateOfPreviousVisit, "</span></p>\n        <p class=\"line-in-visit\">\u041A\u0440\u0430\u0442\u043A\u043E\u0435 \u043E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u0432\u0438\u0437\u0438\u0442\u0430: <span class=\"regular-text short-description\">").concat(this.shortDiscriptionsOfVisit, "</span></p>\n        <p class=\"line-in-visit\">\u0421\u0440\u043E\u0447\u043D\u043E\u0441\u0442\u044C: <span class=\"regular-text urgency\">").concat(this.urgency, "</span></p>\n        ");
+      extraInfo.classList.add("extra-info");
+      extraInfo.innerHTML = "\n        <p class=\"line-in-visit\">\u0426\u0435\u043B\u044C \u0432\u0438\u0437\u0438\u0442\u0430: ".concat(this._purposeOfVisit, "</p>\n        <p class=\"line-in-visit\">\u0414\u0430\u0442\u0430 \u043F\u043E\u0441\u043B\u0435\u0434\u043D\u0435\u0433\u043E \u0432\u0438\u0437\u0438\u0442\u0430: ").concat(this._dateOfPreviousVisit, "</p>\n        <p class=\"line-in-visit\">\u041A\u0440\u0430\u0442\u043A\u043E\u0435 \u043E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u0432\u0438\u0437\u0438\u0442\u0430: ").concat(this._shortDiscriptionsOfVisit, "</p>\n        <p class=\"line-in-visit\">\u0421\u0440\u043E\u0447\u043D\u043E\u0441\u0442\u044C: ").concat(this._urgency, "</p>\n        ");
       extraInfo.classList.add("hidden");
-      this.visit.querySelector(".edit-panel").before(extraInfo);
+
+      this._visit.querySelector(".edit-panel").before(extraInfo);
     }
   }]);
 
@@ -905,10 +1046,11 @@ var VisitTherapist = /*#__PURE__*/function (_Visit3) {
       _get(_getPrototypeOf(VisitTherapist.prototype), "render", this).call(this);
 
       var extraInfo = document.createElement("div");
-      extraInfo.classList.add('extra-info');
-      extraInfo.innerHTML = "\n        <p class=\"line-in-visit\">\u0412\u0440\u0437\u0440\u0430\u0441\u0442: <span class=\"regular-text age\">".concat(this.age, "</span></p>\n        <p class=\"line-in-visit\">\u0426\u0435\u043B\u044C \u0432\u0438\u0437\u0438\u0442\u0430: <span class=\"regular-text purpose-of-visit\">").concat(this.purposeOfVisit, "</span></p>\n        <p class=\"line-in-visit\">\u041A\u0440\u0430\u0442\u043A\u043E\u0435 \u043E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u0432\u0438\u0437\u0438\u0442\u0430: <span class=\"regular-text short-description\">").concat(this.shortDiscriptionsOfVisit, "</span></p>\n        <p class=\"line-in-visit\">\u0421\u0440\u043E\u0447\u043D\u043E\u0441\u0442\u044C: <span class=\"regular-text urgency\">").concat(this.urgency, "</span></p>\n        ");
+      extraInfo.classList.add("extra-info");
+      extraInfo.innerHTML = "\n        <p class=\"line-in-visit\">\u0412\u0440\u0437\u0440\u0430\u0441\u0442: ".concat(this._age, "</p>\n        <p class=\"line-in-visit\">\u0426\u0435\u043B\u044C \u0432\u0438\u0437\u0438\u0442\u0430: ").concat(this._purposeOfVisit, "</p>\n        <p class=\"line-in-visit\">\u041A\u0440\u0430\u0442\u043A\u043E\u0435 \u043E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u0432\u0438\u0437\u0438\u0442\u0430: ").concat(this._shortDiscriptionsOfVisit, "</p>\n        <p class=\"line-in-visit\">\u0421\u0440\u043E\u0447\u043D\u043E\u0441\u0442\u044C: ").concat(this._urgency, "</p>\n        ");
       extraInfo.classList.add("hidden");
-      this.visit.querySelector(".edit-panel").before(extraInfo);
+
+      this._visit.querySelector(".edit-panel").before(extraInfo);
     }
   }]);
 
@@ -916,7 +1058,7 @@ var VisitTherapist = /*#__PURE__*/function (_Visit3) {
 }(Visit);
 
 exports.VisitTherapist = VisitTherapist;
-},{"./request.js":"src/js/request.js","./modal.js":"src/js/modal.js","./drag.js":"src/js/drag.js"}],"src/js/filter.js":[function(require,module,exports) {
+},{"./request.js":"src/js/request.js","./modal.js":"src/js/modal.js","./drag.js":"src/js/drag.js","./classes.js":"src/js/classes.js"}],"src/js/filter.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -927,6 +1069,8 @@ exports.default = void 0;
 var _visit = _interopRequireDefault(require("./visit.js"));
 
 var _request = _interopRequireDefault(require("./request.js"));
+
+var _classes = require("./classes.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -940,71 +1084,96 @@ var Filter = /*#__PURE__*/function () {
   function Filter() {
     _classCallCheck(this, Filter);
 
-    this.searchContainer = document.querySelector(".filter-container");
-    this.getVisitsData();
-    this.createSearchInput();
-    this.createUrgencySelect();
+    this._searchContainer = document.querySelector(".filter-container");
+
+    this._getVisitsData();
+
+    this._createInput();
+
+    this._createSelectUrgency();
+
+    this._createSelectStatus();
   }
 
   _createClass(Filter, [{
-    key: "createSearchInput",
-    value: function createSearchInput() {
-      this.input = document.createElement('input');
-      this.input.classList.add('filter-live-search');
-      this.input.type = 'text';
-      this.input.placeholder = 'id, ФИО, доктор';
-      this.searchContainer.append(this.input);
+    key: "_createInput",
+    value: function _createInput() {
+      this._input = new _classes.Input("search");
+
+      this._searchContainer.append(this._input);
     }
   }, {
-    key: "createUrgencySelect",
-    value: function createUrgencySelect() {
+    key: "_createSelectUrgency",
+    value: function _createSelectUrgency() {
       var _this = this;
 
-      var urgency = ['All', 'Regular', 'Priority', 'Urgent'];
-      this.urgencySelect = document.createElement('select');
-      var urgencyTitle = document.createElement('span');
-      urgencyTitle.classList.add('filter_urgency-title');
-      urgencyTitle.innerText = 'Выберите срочность посещения:';
-      this.urgencySelect.classList.add('filter-select-urgency');
-      urgency.forEach(function (el) {
-        _this.selectOption = document.createElement('option');
-        _this.selectOption.text = el;
+      var urgency = ["All", "Regular", "Priority", "Urgent"];
+      this._urgencySelect = new _classes.Select("searchUrgency");
+      var urgencyTitle = document.createElement("span");
+      urgencyTitle.classList.add("filter_urgency-title");
+      urgencyTitle.innerText = "Выберите срочность посещения:";
+      urgency.forEach(function (e) {
+        _this._selectOption = document.createElement("option");
+        _this._selectOption.text = e;
 
-        _this.urgencySelect.options.add(_this.selectOption);
+        _this._urgencySelect.options.add(_this._selectOption);
       });
-      this.searchContainer.append(urgencyTitle);
-      this.searchContainer.append(this.urgencySelect);
+
+      this._searchContainer.append(urgencyTitle);
+
+      this._searchContainer.append(this._urgencySelect);
     }
   }, {
-    key: "getVisitsData",
-    value: function getVisitsData() {
+    key: "_createSelectStatus",
+    value: function _createSelectStatus() {
       var _this2 = this;
+
+      var status = ["All", "Open", "Done"];
+      this._statusSelect = new _classes.Select("searchStatus");
+      var statusTitle = document.createElement("span");
+      statusTitle.classList.add("filter_urgency-title");
+      statusTitle.innerText = "Выберите статус заявки:";
+      status.forEach(function (e) {
+        _this2._selectOption = document.createElement("option");
+        _this2._selectOption.text = e;
+
+        _this2._statusSelect.options.add(_this2._selectOption);
+      });
+
+      this._searchContainer.append(statusTitle);
+
+      this._searchContainer.append(this._statusSelect);
+    }
+  }, {
+    key: "_getVisitsData",
+    value: function _getVisitsData() {
+      var _this3 = this;
 
       new Promise(function (resolve, reject) {
         resolve(new _request.default("getAllVisits"));
       }).then(function (data) {
-        _this2.filter(data);
+        _this3._filter(data);
 
-        _this2.filterByUrgency(data);
+        _this3._filterByUrgency(data);
+
+        _this3._filterByStatus(data);
       });
     }
   }, {
-    key: "filter",
-    value: function filter(allVisits) {
-      this.input.addEventListener('input', function () {
+    key: "_filter",
+    value: function _filter(allVisits) {
+      this._input.addEventListener("input", function () {
         var visitsArray = [];
-        var visitsContainer = document.querySelector(".visits");
-        visitsContainer.innerHTML = "No data found";
         var inputedValue = this.value.trim();
-        var inputedData = new RegExp(inputedValue, 'i');
+        var inputedData = new RegExp(inputedValue, "i");
 
-        if (inputedValue !== '') {
+        if (inputedValue !== "") {
           allVisits.forEach(function (el) {
-            var inputedId = el.id.search(inputedData);
             var inputedName = el.fullName.search(inputedData);
             var inputedDoctor = el.doctor.search(inputedData);
+            var inputedDiscription = el.shortDiscriptionsOfVisit.search(inputedData);
 
-            if (inputedId !== -1 || inputedName !== -1 || inputedDoctor !== -1) {
+            if (inputedName !== -1 || inputedDoctor !== -1 || inputedDiscription !== -1) {
               visitsArray.push(el);
             }
           });
@@ -1016,46 +1185,75 @@ var Filter = /*#__PURE__*/function () {
       });
     }
   }, {
-    key: "filterByUrgency",
-    value: function filterByUrgency(allVisits) {
-      var _this3 = this;
+    key: "_filterByUrgency",
+    value: function _filterByUrgency(allVisits) {
+      var _this4 = this;
 
-      this.urgencySelect.addEventListener('change', function (e) {
-        _this3.input.value = '';
+      this._urgencySelect.addEventListener("change", function (e) {
+        _this4._input.value = "";
         e.preventDefault();
         e.stopPropagation();
         var filteredUrgencyArray = [];
-        var visitsContainer = document.querySelector(".visits");
-        visitsContainer.innerHTML = "";
 
-        if (e.currentTarget.value === 'All') {
+        if (e.currentTarget.value === "All") {
           _visit.default.renderAllVisits(allVisits);
 
-          _this3.filter(allVisits);
+          _this4._filter(allVisits);
         } else {
-          allVisits.forEach(function (el) {
-            if (el.urgency === e.currentTarget.value) {
-              filteredUrgencyArray.push(el);
+          allVisits.forEach(function (elem) {
+            if (elem.urgency === e.currentTarget.value) {
+              filteredUrgencyArray.push(elem);
+            } else {
+              var visitsContainer = document.querySelector(".visits");
+              visitsContainer.innerHTML = "No data found";
             }
           });
 
-          _this3.filter(filteredUrgencyArray);
+          _this4._filter(filteredUrgencyArray);
 
           _visit.default.renderAllVisits(filteredUrgencyArray);
+        }
+      });
+    }
+  }, {
+    key: "_filterByStatus",
+    value: function _filterByStatus(allVisits) {
+      var _this5 = this;
+
+      this._statusSelect.addEventListener("change", function (e) {
+        _this5._input.value = "";
+        e.preventDefault();
+        e.stopPropagation();
+        var filteredStatusArray = [];
+
+        if (e.currentTarget.value === "All") {
+          _visit.default.renderAllVisits(allVisits);
+
+          _this5._filter(allVisits);
+        } else {
+          allVisits.forEach(function (elem) {
+            if (elem.status === e.currentTarget.value) {
+              filteredStatusArray.push(elem);
+            }
+          });
+
+          _this5._filter(filteredStatusArray);
+
+          _visit.default.renderAllVisits(filteredStatusArray);
         }
       });
     }
   }], [{
     key: "filterHide",
     value: function filterHide() {
-      var filter = document.querySelector('.filter');
-      filter.classList.add('hidden');
+      var filter = document.querySelector(".filter");
+      filter.classList.add("hidden");
     }
   }, {
     key: "filterShow",
     value: function filterShow() {
-      var filter = document.querySelector('.filter');
-      filter.classList.remove('hidden');
+      var filter = document.querySelector(".filter");
+      filter.classList.remove("hidden");
       new Filter();
     }
   }]);
@@ -1064,7 +1262,7 @@ var Filter = /*#__PURE__*/function () {
 }();
 
 exports.default = Filter;
-},{"./visit.js":"src/js/visit.js","./request.js":"src/js/request.js"}],"src/js/form.js":[function(require,module,exports) {
+},{"./visit.js":"src/js/visit.js","./request.js":"src/js/request.js","./classes.js":"src/js/classes.js"}],"src/js/form.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1096,26 +1294,35 @@ var Form = /*#__PURE__*/function () {
   function Form(typeOfForm, visit, id, data) {
     _classCallCheck(this, Form);
 
-    this.visit = visit;
-    this.id = id;
-    this.data = data;
-    this.e = document.createElement("form");
+    this._visit = visit;
+    this._id = id;
+    this._data = data; // console.log(this._visit);
+
+    this._elem = document.createElement("form");
 
     if (typeOfForm === "login") {
-      this.e.classList = "login-form";
-      this.mailInput = new _classes.Input("email");
-      this.e.append(this.mailInput);
-      this.passwordInput = new _classes.Input("password");
-      this.e.append(this.passwordInput);
-      this.loginButton = new _classes.Button("login");
-      this.e.append(this.loginButton);
-      this.errorNote = document.createElement("p");
-      this.errorNote.className = "error-note";
-      this.errorNote.innerText = "Неправильный e-mail или пароль";
-      this.errorNote.style.visibility = "hidden";
-      this.errorNote.style.opacity = "0";
-      this.e.append(this.errorNote);
-      this.e.addEventListener("submit", function (e) {
+      this._elem.classList = "login-form";
+      this._mailInput = new _classes.Input("email");
+
+      this._elem.append(this._mailInput);
+
+      this._passwordInput = new _classes.Input("password");
+
+      this._elem.append(this._passwordInput);
+
+      this._loginButton = new _classes.Button("login");
+
+      this._elem.append(this._loginButton);
+
+      this._errorNote = document.createElement("p");
+      this._errorNote.className = "error-note";
+      this._errorNote.innerText = "Неправильный e-mail или пароль";
+      this._errorNote.style.visibility = "hidden";
+      this._errorNote.style.opacity = "0";
+
+      this._elem.append(this._errorNote);
+
+      this._elem.addEventListener("submit", function (e) {
         e.preventDefault();
         var formData = new FormData(this);
         formData = Object.fromEntries(formData);
@@ -1142,190 +1349,272 @@ var Form = /*#__PURE__*/function () {
         });
         this.reset();
       });
-      return this.e;
+
+      return this._elem;
     }
 
     if (typeOfForm === "createVisit") {
-      this.e.classList = "createVisit-form";
-      this.select = new _classes.Select("doctor");
-      this.e.append(this.select);
-      return this.e;
+      this._elem.classList = "createVisit-form";
+      this._select = new _classes.Select("doctor");
+
+      this._elem.append(this._select);
+
+      return this._elem;
     }
 
     if (typeOfForm === "editVisit") {
-      this.e.classList = "editVisit-form";
+      this._elem.classList = "editVisit-form"; // console.log(this._visit);
 
-      if (this.data.doctor === "Cardiologist") {
-        this.doctor = new _classes.InputFieldTitle("Doctor: ");
-        this.doctor.insertAdjacentHTML("beforeend", "".concat(this.data.doctor));
-        this.urgency = new _classes.InputFieldTitle("Urgency: ");
-        this.urgency.insertAdjacentHTML("beforeend", "".concat(this.data.urgency));
-        this.fullName = new _classes.Input("fullName");
-        this.fullName.value = data.fullName;
-        this.age = new _classes.Input("age");
-        this.age.value = data.age;
-        this.inputPurpose = new _classes.Input("purposeOfVisit");
-        this.inputPurpose.value = data.purposeOfVisit;
-        this.bloodPressure = new _classes.Input('bloodPressure');
-        this.bloodPressure.value = data.bloodPressure;
-        this.bodyMassIndex = new _classes.Input("bodyMassIndex");
-        this.bodyMassIndex.value = data.bodyMassIndex;
-        this.pastIllnesses = new _classes.Textarea("pastIllnesses");
-        this.pastIllnesses.value = data.pastIllnesses;
-        this.shortDescription = new _classes.Textarea("shortDescription");
-        this.shortDescription.value = data.shortDescription;
-        this.editVisitModalBtn = new _classes.Button("editVisitModalBtn");
-        this.onEditVisitClickBound = this.onEditVisitClick.bind(this);
-        this.e.addEventListener("submit", this.onEditVisitClickBound);
-        this.e.append(this.doctor);
-        this.e.append(this.urgency);
-        this.e.append(new _classes.InputFieldTitle("Full name:"));
-        this.e.append(this.fullName);
-        this.e.append(new _classes.InputFieldTitle("Age:"));
-        this.e.append(this.age);
-        this.e.append(new _classes.InputFieldTitle("Purpose of visit:"));
-        this.e.append(this.inputPurpose);
-        this.e.append(new _classes.InputFieldTitle("Usual blood pressure:"));
-        this.e.append(this.bloodPressure);
-        this.e.append(new _classes.InputFieldTitle("Body mass index:"));
-        this.e.append(this.bodyMassIndex);
-        this.e.append(new _classes.InputFieldTitle("Past illnesses of cardiovascular system:"));
-        this.e.append(this.pastIllnesses);
-        this.e.append(new _classes.InputFieldTitle("Short description:"));
-        this.e.append(this.shortDescription);
-        this.e.append(this.editVisitModalBtn);
-        return this.e;
+      if (this._visit._data.doctor === "Cardiologist") {
+        this._doctor = new _classes.InputFieldTitle("Доктор: ");
+
+        this._doctor.insertAdjacentHTML("beforeend", "".concat(this._visit._data.doctor));
+
+        this._urgency = new _classes.InputFieldTitle("Срочность: ");
+
+        this._urgency.insertAdjacentHTML("beforeend", "".concat(this._visit._data.urgency));
+
+        this._fullName = new _classes.Input("fullName");
+        this._fullName.value = this._visit._data.fullName;
+        this._age = new _classes.Input("age");
+        this._age.value = this._visit._data.age;
+        this._inputPurpose = new _classes.Input("purposeOfVisit");
+        this._inputPurpose.value = this._visit._data.purposeOfVisit;
+        this._bloodPressure = new _classes.Input("bloodPressure");
+        this._bloodPressure.value = this._visit._data.bloodPressure;
+        this._bodyMassIndex = new _classes.Input("bodyMassIndex");
+        this._bodyMassIndex.value = this._visit._data.bodyMassIndex;
+        this._pastDiseases = new _classes.Textarea("pastDiseases");
+        this._pastDiseases.value = this._visit._data.pastDiseases;
+        this._shortDiscriptionsOfVisit = new _classes.Textarea("shortDiscriptionsOfVisit");
+        this._shortDiscriptionsOfVisit.value = this._visit._data.shortDiscriptionsOfVisit;
+        this._editVisitModalBtn = new _classes.Button("editVisitModalBtn");
+        this._editVisitClickBind = this._editVisitClick.bind(this);
+
+        this._elem.addEventListener("submit", this._editVisitClickBind);
+
+        this._elem.append(this._doctor);
+
+        this._elem.append(this._urgency);
+
+        this._elem.append(new _classes.InputFieldTitle("ФИО:"));
+
+        this._elem.append(this._fullName);
+
+        this._elem.append(new _classes.InputFieldTitle("Возраст:"));
+
+        this._elem.append(this._age);
+
+        this._elem.append(new _classes.InputFieldTitle("Цель визита:"));
+
+        this._elem.append(this._inputPurpose);
+
+        this._elem.append(new _classes.InputFieldTitle("Обычное давление:"));
+
+        this._elem.append(this._bloodPressure);
+
+        this._elem.append(new _classes.InputFieldTitle("Индекс массы тела:"));
+
+        this._elem.append(this._bodyMassIndex);
+
+        this._elem.append(new _classes.InputFieldTitle("Перенесенные заболевания сердечно-сосудистой системы:"));
+
+        this._elem.append(this._pastDiseases);
+
+        this._elem.append(new _classes.InputFieldTitle("Краткое описание визита:"));
+
+        this._elem.append(this._shortDiscriptionsOfVisit);
+
+        this._elem.append(this._editVisitModalBtn);
+
+        return this._elem;
       }
 
-      if (this.data.doctor === "Dentist") {
-        this.doctor = new _classes.InputFieldTitle("Doctor: ");
-        this.doctor.insertAdjacentHTML("beforeend", "".concat(this.data.doctor));
-        this.urgency = new _classes.InputFieldTitle("Urgency: ");
-        this.urgency.insertAdjacentHTML("beforeend", "".concat(this.data.urgency));
-        this.fullName = new _classes.Input("fullName");
-        this.fullName.value = data.fullName;
-        this.inputPurpose = new _classes.Input("purposeOfVisit");
-        this.inputPurpose.value = data.purposeOfVisit;
-        this.inputDateOfPrevVisit = new _classes.Input("dateOfPreviousVisit");
-        this.inputDateOfPrevVisit.value = data.dateOfPreviousVisit;
-        this.shortDescription = new _classes.Textarea("shortDescription");
-        this.shortDescription.value = data.shortDescription;
-        this.editVisitModalBtn = new _classes.Button("editVisitModalBtn");
-        this.onEditVisitClickBound = this.onEditVisitClick.bind(this);
-        this.e.addEventListener("submit", this.onEditVisitClickBound);
-        this.e.append(this.doctor);
-        this.e.append(this.urgency);
-        this.e.append(new _classes.InputFieldTitle("Full name:"));
-        this.e.append(this.fullName);
-        this.e.append(new _classes.InputFieldTitle("Purpose of visit:"));
-        this.e.append(this.inputPurpose);
-        this.e.append(new _classes.InputFieldTitle("Date of previous visit:"));
-        this.e.append(this.inputDateOfPrevVisit);
-        this.e.append(new _classes.InputFieldTitle("Short description:"));
-        this.e.append(this.shortDescription);
-        this.e.append(this.editVisitModalBtn);
+      if (this._visit._data.doctor === "Dentist") {
+        this._doctor = new _classes.InputFieldTitle("Доктор: ");
+
+        this._doctor.insertAdjacentHTML("beforeend", "".concat(this._visit._data.doctor));
+
+        this._urgency = new _classes.InputFieldTitle("Срочность: ");
+
+        this._urgency.insertAdjacentHTML("beforeend", "".concat(this._visit._data.urgency));
+
+        this._fullName = new _classes.Input("fullName");
+        this._fullName.value = this._visit._data.fullName;
+        this._inputPurpose = new _classes.Input("purposeOfVisit");
+        this._inputPurpose.value = this._visit._data.purposeOfVisit;
+        this._inputDateOfPrevVisit = new _classes.Input("dateOfPreviousVisit");
+        this._inputDateOfPrevVisit.value = this._visit._data.dateOfPreviousVisit;
+        this._shortDiscriptionsOfVisit = new _classes.Textarea("shortDiscriptionsOfVisit");
+        this._shortDiscriptionsOfVisit.value = this._visit._data.shortDiscriptionsOfVisit;
+        this._editVisitModalBtn = new _classes.Button("editVisitModalBtn");
+        this._editVisitClickBind = this._editVisitClick.bind(this);
+
+        this._elem.addEventListener("submit", this._editVisitClickBind);
+
+        this._elem.append(this._doctor);
+
+        this._elem.append(this._urgency);
+
+        this._elem.append(new _classes.InputFieldTitle("ФИО:"));
+
+        this._elem.append(this._fullName);
+
+        this._elem.append(new _classes.InputFieldTitle("Цель визита:"));
+
+        this._elem.append(this._inputPurpose);
+
+        this._elem.append(new _classes.InputFieldTitle("Дата последнего визита:"));
+
+        this._elem.append(this._inputDateOfPrevVisit);
+
+        this._elem.append(new _classes.InputFieldTitle("Краткое описание визита:"));
+
+        this._elem.append(this._shortDiscriptionsOfVisit);
+
+        this._elem.append(this._editVisitModalBtn);
       }
 
-      if (this.data.doctor === "Therapist") {
-        this.doctor = new _classes.InputFieldTitle("Doctor: ");
-        this.doctor.insertAdjacentHTML("beforeend", "".concat(this.data.doctor));
-        this.urgency = new _classes.InputFieldTitle("Urgency: ");
-        this.urgency.insertAdjacentHTML("beforeend", "".concat(this.data.urgency));
-        this.fullName = new _classes.Input("fullName");
-        this.fullName.value = data.fullName;
-        this.age = new _classes.Input("age");
-        this.age.value = data.age;
-        this.inputPurpose = new _classes.Input("purposeOfVisit");
-        this.inputPurpose.value = data.purposeOfVisit;
-        this.shortDescription = new _classes.Textarea("shortDescription");
-        this.shortDescription.value = data.shortDescription;
-        this.editVisitModalBtn = new _classes.Button("editVisitModalBtn");
-        this.onEditVisitClickBound = this.onEditVisitClick.bind(this);
-        this.e.addEventListener("submit", this._onEditVisitClickBound);
-        this.e.append(this.doctor);
-        this.e.append(this.urgency);
-        this.e.append(new _classes.InputFieldTitle("Full name:"));
-        this.e.append(this.fullName);
-        this.e.append(new _classes.InputFieldTitle("Age:"));
-        this.e.append(this.age);
-        this.e.append(new _classes.InputFieldTitle("Purpose of visit:"));
-        this.e.append(this.inputPurpose);
-        this.e.append(new _classes.InputFieldTitle("Short description:"));
-        this.e.append(this.shortDescription);
-        this.e.append(this.editVisitModalBtn);
+      if (this._visit._data.doctor === "Therapist") {
+        this._doctor = new _classes.InputFieldTitle("Доктор: ");
+
+        this._doctor.insertAdjacentHTML("beforeend", "".concat(this._visit._data.doctor));
+
+        this._urgency = new _classes.InputFieldTitle("Срочность: ");
+
+        this._urgency.insertAdjacentHTML("beforeend", "".concat(this._visit._data.urgency));
+
+        this._fullName = new _classes.Input("fullName");
+        this._fullName.value = this._visit._data.fullName;
+        this._age = new _classes.Input("age");
+        this._age.value = this._visit._data.age;
+        this._inputPurpose = new _classes.Input("purposeOfVisit");
+        this._inputPurpose.value = this._visit._data.purposeOfVisit;
+        this._shortDiscriptionsOfVisit = new _classes.Textarea("shortDiscriptionsOfVisit");
+        this._shortDiscriptionsOfVisit.value = this._visit._data.shortDiscriptionsOfVisit;
+        this._editVisitModalBtn = new _classes.Button("editVisitModalBtn");
+        this._editVisitClickBind = this._editVisitClick.bind(this);
+
+        this._elem.addEventListener("submit", this._editVisitClickBind);
+
+        this._elem.append(this._doctor);
+
+        this._elem.append(this._urgency);
+
+        this._elem.append(new _classes.InputFieldTitle("ФИО:"));
+
+        this._elem.append(this._fullName);
+
+        this._elem.append(new _classes.InputFieldTitle("Возраст:"));
+
+        this._elem.append(this._age);
+
+        this._elem.append(new _classes.InputFieldTitle("Цель визита:"));
+
+        this._elem.append(this._inputPurpose);
+
+        this._elem.append(new _classes.InputFieldTitle("Краткое описание визита:"));
+
+        this._elem.append(this._shortDiscriptionsOfVisit);
+
+        this._elem.append(this._editVisitModalBtn);
       }
 
-      return this.e;
+      return this._elem;
     }
 
     if (typeOfForm === "doctorCardiologist") {
-      this.e = document.querySelector(".createVisit-form");
-      this.fullName = new _classes.Input("fullName");
-      this.age = new _classes.Input("age");
-      this.purposeOfVisit = new _classes.Input("purposeOfVisit");
-      this.bloodPressure = new _classes.Input("bloodPressure");
-      this.bodyMassIndex = new _classes.Input("bodyMassIndex");
-      this.pastDiseases = new _classes.Textarea("pastDiseases");
-      this.urgency = new _classes.Select("urgency");
-      this.shortDiscriptionsOfVisit = new _classes.Textarea("shortDiscriptionsOfVisit");
-      this.createVisitModalBtn = new _classes.Button("createVisitModalBtn");
-      this.CreateVisitClickBound = this.onCreateVisit.bind(this);
-      this.e.addEventListener("submit", this.CreateVisitClickBound);
-      this.e.append(this.fullName);
-      this.e.append(this.age);
-      this.e.append(this.purposeOfVisit);
-      this.e.append(this.bloodPressure);
-      this.e.append(this.bodyMassIndex);
-      this.e.append(this.pastDiseases);
-      this.e.append(this.urgency);
-      this.e.append(this.shortDiscriptionsOfVisit);
-      this.e.append(this.createVisitModalBtn);
+      this._elem = document.querySelector(".createVisit-form");
+      this._fullName = new _classes.Input("fullName");
+      this._age = new _classes.Input("age");
+      this._purposeOfVisit = new _classes.Input("purposeOfVisit");
+      this._bloodPressure = new _classes.Input("bloodPressure");
+      this._bodyMassIndex = new _classes.Input("bodyMassIndex");
+      this._pastDiseases = new _classes.Textarea("pastDiseases");
+      this._urgency = new _classes.Select("urgency");
+      this._shortDiscriptionsOfVisit = new _classes.Textarea("shortDiscriptionsOfVisit");
+      this._createVisitModalBtn = new _classes.Button("createVisitModalBtn");
+      this._createVisitClickBind = this._createVisit.bind(this);
+
+      this._elem.addEventListener("submit", this._createVisitClickBind);
+
+      this._elem.append(this._fullName);
+
+      this._elem.append(this._age);
+
+      this._elem.append(this._purposeOfVisit);
+
+      this._elem.append(this._bloodPressure);
+
+      this._elem.append(this._bodyMassIndex);
+
+      this._elem.append(this._pastDiseases);
+
+      this._elem.append(this._urgency);
+
+      this._elem.append(this._shortDiscriptionsOfVisit);
+
+      this._elem.append(this._createVisitModalBtn);
     }
 
     if (typeOfForm === "doctorDentist") {
-      this.e = document.querySelector(".createVisit-form");
-      this.fullName = new _classes.Input("fullName");
-      this.purposeOfVisit = new _classes.Input("purposeOfVisit");
-      this.urgency = new _classes.Select("urgency");
-      this.dateOfPreviousVisit = new _classes.Input("dateOfPreviousVisit");
-      this.shortDiscriptionsOfVisit = new _classes.Textarea("shortDiscriptionsOfVisit");
-      this.createVisitModalBtn = new _classes.Button("createVisitModalBtn");
-      this.CreateVisitClickBound = this.onCreateVisit.bind(this);
-      this.e.addEventListener('submit', this.CreateVisitClickBound);
-      this.e.append(this.fullName);
-      this.e.append(this.purposeOfVisit);
-      this.e.append(this.urgency);
-      this.e.append(this.dateOfPreviousVisit);
-      this.e.append(this.shortDiscriptionsOfVisit);
-      this.e.append(this.createVisitModalBtn);
+      this._elem = document.querySelector(".createVisit-form");
+      this._fullName = new _classes.Input("fullName");
+      this._purposeOfVisit = new _classes.Input("purposeOfVisit");
+      this._urgency = new _classes.Select("urgency");
+      this._dateOfPreviousVisit = new _classes.Input("dateOfPreviousVisit");
+      this._shortDiscriptionsOfVisit = new _classes.Textarea("shortDiscriptionsOfVisit");
+      this._createVisitModalBtn = new _classes.Button("createVisitModalBtn");
+      this._createVisitClickBind = this._createVisit.bind(this);
+
+      this._elem.addEventListener("submit", this._createVisitClickBind);
+
+      this._elem.append(this._fullName);
+
+      this._elem.append(this._purposeOfVisit);
+
+      this._elem.append(this._urgency);
+
+      this._elem.append(this._dateOfPreviousVisit);
+
+      this._elem.append(this._shortDiscriptionsOfVisit);
+
+      this._elem.append(this._createVisitModalBtn);
     }
 
     if (typeOfForm === "doctorTherapist") {
-      this.e = document.querySelector(".createVisit-form");
-      this.fullName = new _classes.Input("fullName");
-      this.age = new _classes.Input("age");
-      this.purposeOfVisit = new _classes.Input("purposeOfVisit");
-      this.urgency = new _classes.Select("urgency");
-      this.shortDiscriptionsOfVisit = new _classes.Textarea("shortDiscriptionsOfVisit");
-      this.createVisitModalBtn = new _classes.Button("createVisitModalBtn");
-      this.CreateVisitClickBound = this.onCreateVisit.bind(this);
-      this.e.addEventListener("submit", this.CreateVisitClickBound);
-      this.e.append(this.fullName);
-      this.e.append(this.age);
-      this.e.append(this.purposeOfVisit);
-      this.e.append(this.urgency);
-      this.e.append(this.shortDiscriptionsOfVisit);
-      this.e.append(this.createVisitModalBtn);
+      this._elem = document.querySelector(".createVisit-form");
+      this._fullName = new _classes.Input("fullName");
+      this._age = new _classes.Input("age");
+      this._purposeOfVisit = new _classes.Input("purposeOfVisit");
+      this._urgency = new _classes.Select("urgency");
+      this._shortDiscriptionsOfVisit = new _classes.Textarea("shortDiscriptionsOfVisit");
+      this._createVisitModalBtn = new _classes.Button("createVisitModalBtn");
+      this._createVisitClickBind = this._createVisit.bind(this);
+
+      this._elem.addEventListener("submit", this._createVisitClickBind);
+
+      this._elem.append(this._fullName);
+
+      this._elem.append(this._age);
+
+      this._elem.append(this._purposeOfVisit);
+
+      this._elem.append(this._urgency);
+
+      this._elem.append(this._shortDiscriptionsOfVisit);
+
+      this._elem.append(this._createVisitModalBtn);
     }
   }
 
   _createClass(Form, [{
-    key: "onCreateVisit",
-    value: function onCreateVisit(e) {
+    key: "_createVisit",
+    value: function _createVisit(e) {
       e.preventDefault();
       var selectedDoctor = document.querySelector(".doctor-select").value;
       var selectedUrgency = document.querySelector(".urgency-select").value;
-      var formData = new FormData(this.e);
+      var formData = new FormData(this._elem);
       formData = Object.fromEntries(formData);
       formData["doctor"] = selectedDoctor;
       formData["urgency"] = selectedUrgency;
@@ -1355,22 +1644,25 @@ var Form = /*#__PURE__*/function () {
       }).catch(function (error) {
         return console.error(error);
       });
-      this.e.reset();
+
+      this._elem.reset();
     }
   }, {
-    key: "onEditVisitClick",
-    value: function onEditVisitClick(e) {
+    key: "_editVisitClick",
+    value: function _editVisitClick(e) {
       var _this = this;
 
       e.preventDefault();
-      var formData = new FormData(this.e);
+      var formData = new FormData(this._elem);
       formData = Object.fromEntries(formData);
-      formData["doctor"] = this.data.doctor;
-      formData["urgency"] = this.data.urgency;
-      new _request.default("put", formData, this.id).then(function (response) {
+      formData["doctor"] = this._visit._data.doctor;
+      formData["urgency"] = this._visit._data.urgency;
+      new _request.default("put", formData, this._visit._data.id).then(function (response) {
+        var modal = document.querySelector(".modal-dialog");
+        modal.remove();
         return response.json();
       }).then(function (data) {
-        _this.visit.updateValue(data, _this.visit);
+        _this._visit.updateValue(data, _this._visit);
       }).catch(function (error) {
         return console.error(error);
       });
@@ -1405,68 +1697,120 @@ var Modal = /*#__PURE__*/function () {
   function Modal(typeOfModal, visit, data, id) {
     _classCallCheck(this, Modal);
 
-    this.modalContainer = document.createElement("div");
-    this.modalContainer.classList.add("modal-dialog");
-    this.modalContainer.tabinde = "-1";
-    this.modalContent = document.createElement("div");
-    this.modalContent.classList.add("modal-content");
-    this.modalContainer.append(this.modalContent);
-    this.modalHeader = document.createElement("div");
-    this.modalHeader.classList.add("modal-header");
-    this.modalContent.append(this.modalHeader);
-    this.modalButtonClose = document.createElement("span");
-    this.modalButtonClose.classList.add("btn-close");
-    this.modalHeader.append(this.modalButtonClose);
-    this.modalBody = document.createElement("div");
-    this.modalBody.classList.add("modal-body");
-    this.modalContent.append(this.modalBody);
-    this.modalButtonClose = document.createElement("span");
-    this.modalButtonClose.classList.add("btn-close");
-    this.modalHeader.append(this.modalButtonClose);
-    this.removeModalBound = this.removeModal.bind(this);
-    this.modalButtonClose.addEventListener("click", this.removeModalBound); // this.onBackgroundClickBound = this.onBackgroundClick.bind(this);
-    // this.modalContainer.addEventListener("mousedown", this.onBackgroundClickBound);
+    this._overlay = document.querySelector(".overlay");
+
+    this._overlay.classList.add("active");
+
+    this._modalContainer = document.createElement("div");
+
+    this._modalContainer.classList.add("modal-dialog");
+
+    this._modalContainer.tabinde = "-1";
+    this._modalContent = document.createElement("div");
+
+    this._modalContent.classList.add("modal-content");
+
+    this._modalContainer.append(this._modalContent);
+
+    this._modalHeader = document.createElement("div");
+
+    this._modalHeader.classList.add("modal-header");
+
+    this._modalContent.append(this._modalHeader);
+
+    this._modalButtonClose = document.createElement("span");
+
+    this._modalButtonClose.classList.add("btn-close");
+
+    this._modalHeader.append(this._modalButtonClose);
+
+    this._modalBody = document.createElement("div");
+
+    this._modalBody.classList.add("modal-body");
+
+    this._modalContent.append(this._modalBody);
+
+    this._modalButtonClose = document.createElement("span");
+
+    this._modalButtonClose.classList.add("btn-close");
+
+    this._modalHeader.append(this._modalButtonClose);
+
+    this._removeModalBind = this._removeModal.bind(this);
+
+    this._modalButtonClose.addEventListener("click", this._removeModalBind);
+
+    this._onBackgroundClick();
 
     if (typeOfModal === "login") {
-      this.titleHeader = document.createElement("h5");
-      this.modalHeader.append(this.titleHeader);
-      this.titleHeader.innerHTML = "Введите e-mail и пароль";
-      this.loginForm = new _form.default("login");
-      this.modalBody.append(this.loginForm);
+      this._titleHeader = document.createElement("h3");
+
+      this._modalHeader.append(this._titleHeader);
+
+      this._titleHeader.innerHTML = "Введите e-mail и пароль";
+      this._loginForm = new _form.default("login");
+
+      this._modalBody.append(this._loginForm);
     }
 
     if (typeOfModal === "createVisit") {
-      this.titleHeader = document.createElement("h5");
-      this.modalHeader.append(this.titleHeader);
-      this.titleHeader.innerHTML = "Заполните данные о посещении";
-      this.createVisitForm = new _form.default("createVisit");
-      this.modalBody.append(this.createVisitForm);
+      this._titleHeader = document.createElement("h3");
+
+      this._modalHeader.append(this._titleHeader);
+
+      this._titleHeader.innerHTML = "Заполните данные о посещении";
+      this._createVisitForm = new _form.default("createVisit");
+
+      this._modalBody.append(this._createVisitForm);
     }
 
     if (typeOfModal === "editVisit") {
-      this.titleHeader = document.createElement("h5");
-      this.modalHeader.append(this.titleHeader);
-      this.titleHeader.innerHTML = "Измените информацию о визите";
-      this.editVisitForm = new _form.default("editVisit", visit, id, data);
-      this.modalBody.append(this.editVisitForm);
+      this._titleHeader = document.createElement("h3");
+
+      this._modalHeader.append(this._titleHeader);
+
+      this._titleHeader.innerHTML = "Измените информацию о визите";
+      this._editVisitForm = new _form.default("editVisit", visit, id, data);
+
+      this._modalBody.append(this._editVisitForm);
     }
 
-    document.body.prepend(this.modalContainer);
-    this.modalContainer.classList.add("active");
-  } // onBackgroundClick(evt) {
-  //     let clickedItem = evt.target;
-  //     if (clickedItem === this.modalContent) {
-  //         this.removeModal();
-  //         this.modalContainer.removeEventListener("click",this.onBackgroundClickBound);
-  //     }
-  // }
+    document.body.prepend(this._modalContainer);
 
+    this._modalContainer.classList.add("active");
+  }
 
   _createClass(Modal, [{
-    key: "removeModal",
-    value: function removeModal() {
-      this.modalContainer.remove();
-      this.modalButtonClose.removeEventListener("click", this.removeModalBound);
+    key: "_removeModal",
+    value: function _removeModal() {
+      this._modalContainer.remove();
+
+      this._overlay.classList.remove("active");
+
+      this._modalButtonClose.removeEventListener("click", this._removeModalBind);
+    }
+  }, {
+    key: "_onBackgroundClick",
+    value: function _onBackgroundClick() {
+      this._body = document.body.addEventListener("keyup", function (e) {
+        var key = e.keyCode;
+
+        if (key == 27) {
+          var overlay = document.querySelector(".overlay");
+          var modalContainer = document.querySelector(".modal-dialog");
+          modalContainer.remove();
+          overlay.classList.remove("active");
+        }
+
+        ;
+      }, false);
+
+      this._overlay.addEventListener("click", function () {
+        var overlay = document.querySelector(".overlay");
+        var modalContainer = document.querySelector(".modal-dialog");
+        modalContainer.remove();
+        overlay.classList.remove("active");
+      });
     }
   }]);
 
@@ -1485,6 +1829,8 @@ var _visit = _interopRequireDefault(require("./visit.js"));
 
 var _filter = _interopRequireDefault(require("./filter.js"));
 
+var _classes = require("./classes.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function createContent() {
@@ -1496,14 +1842,9 @@ function createContent() {
   a.innerHTML = "CARDS";
   a.href = "#";
   header.append(a);
-  var signIn = document.createElement("button");
-  signIn.className = "sign-in-btn btn btn-primary";
-  signIn.innerHTML = "Войти";
+  var signIn = new _classes.Button("signIn");
   header.append(signIn);
-  var createVisit = document.createElement("button");
-  createVisit.className = "create-visit-btn btn btn-primary";
-  createVisit.style.display = "none";
-  createVisit.innerHTML = "Создать визит";
+  var createVisit = new _classes.Button("createVisit");
   header.append(createVisit);
   var main = document.createElement("main");
   header.after(main);
@@ -1523,6 +1864,10 @@ function createContent() {
   divVisits.className = "no-visits-notice";
   divVisits.innerHTML = "No items have been added yet.";
   sectionVisits.append(divVisits);
+  var overlay = document.createElement("div");
+  overlay.className = "overlay";
+  overlay.id = "overlay-moda";
+  document.body.append(overlay);
 }
 
 window.onload = function () {
@@ -1558,7 +1903,7 @@ window.onload = function () {
     });
   }
 };
-},{"./modal.js":"src/js/modal.js","./request.js":"src/js/request.js","./visit.js":"src/js/visit.js","./filter.js":"src/js/filter.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./modal.js":"src/js/modal.js","./request.js":"src/js/request.js","./visit.js":"src/js/visit.js","./filter.js":"src/js/filter.js","./classes.js":"src/js/classes.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -1586,7 +1931,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49483" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60763" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

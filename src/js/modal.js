@@ -3,79 +3,96 @@ import {Button, Input} from "./classes.js";
 
 export default class Modal {
     constructor(typeOfModal, visit, data, id) {
-        this.modalContainer = document.createElement("div");
-        this.modalContainer.classList.add("modal-dialog");
-        this.modalContainer.tabinde = "-1";
 
-        this.modalContent = document.createElement("div");
-        this.modalContent.classList.add("modal-content");
-        this.modalContainer.append(this.modalContent);
+        this._overlay = document.querySelector(".overlay");
+        this._overlay.classList.add("active");
 
-        this.modalHeader = document.createElement("div");
-        this.modalHeader.classList.add("modal-header");
-        this.modalContent.append(this.modalHeader);
+        this._modalContainer = document.createElement("div");
+        this._modalContainer.classList.add("modal-dialog");
+        this._modalContainer.tabinde = "-1";
 
-        this.modalButtonClose = document.createElement("span");
-        this.modalButtonClose.classList.add("btn-close");
-        this.modalHeader.append(this.modalButtonClose);
+        this._modalContent = document.createElement("div");
+        this._modalContent.classList.add("modal-content");
+        this._modalContainer.append(this._modalContent);
 
-        this.modalBody = document.createElement("div");
-        this.modalBody.classList.add("modal-body");
-        this.modalContent.append(this.modalBody);
+        this._modalHeader = document.createElement("div");
+        this._modalHeader.classList.add("modal-header");
+        this._modalContent.append(this._modalHeader);
 
-        this.modalButtonClose = document.createElement("span");
-        this.modalButtonClose.classList.add("btn-close");
-        this.modalHeader.append(this.modalButtonClose);
+        this._modalButtonClose = document.createElement("span");
+        this._modalButtonClose.classList.add("btn-close");
+        this._modalHeader.append(this._modalButtonClose);
+
+        this._modalBody = document.createElement("div");
+        this._modalBody.classList.add("modal-body");
+        this._modalContent.append(this._modalBody);
+
+        this._modalButtonClose = document.createElement("span");
+        this._modalButtonClose.classList.add("btn-close");
+        this._modalHeader.append(this._modalButtonClose);
 
 
-        this.removeModalBound = this.removeModal.bind(this);
-        this.modalButtonClose.addEventListener("click", this.removeModalBound);
-       
+        this._removeModalBind = this._removeModal.bind(this);
+        this._modalButtonClose.addEventListener("click", this._removeModalBind);
 
-        // this.onBackgroundClickBound = this.onBackgroundClick.bind(this);
-        // this.modalContainer.addEventListener("mousedown", this.onBackgroundClickBound);
+        this._onBackgroundClick();
+ 
+        if (typeOfModal === "login") {
 
-        if (typeOfModal==="login") {
-            this.titleHeader = document.createElement("h5");
-            this.modalHeader.append(this.titleHeader)
-            this.titleHeader.innerHTML = "Введите e-mail и пароль";
+            this._titleHeader = document.createElement("h3");
+            this._modalHeader.append(this._titleHeader)
+            this._titleHeader.innerHTML = "Введите e-mail и пароль";
 
-            this.loginForm = new Form("login");
-            this.modalBody.append(this.loginForm);
+            this._loginForm = new Form("login");
+            this._modalBody.append(this._loginForm);
         }
 
         if (typeOfModal === "createVisit") {
-            this.titleHeader = document.createElement("h5");
-            this.modalHeader.append(this.titleHeader)
-            this.titleHeader.innerHTML = "Заполните данные о посещении";
+            this._titleHeader = document.createElement("h3");
+            this._modalHeader.append(this._titleHeader)
+            this._titleHeader.innerHTML = "Заполните данные о посещении";
 
-            this.createVisitForm = new Form("createVisit");
-            this.modalBody.append(this.createVisitForm);
+            this._createVisitForm = new Form("createVisit");
+            this._modalBody.append(this._createVisitForm);
         }
 
         if (typeOfModal === "editVisit") {
-            this.titleHeader = document.createElement("h5");
-            this.modalHeader.append(this.titleHeader)
-            this.titleHeader.innerHTML = "Измените информацию о визите";
+            this._titleHeader = document.createElement("h3");
+            this._modalHeader.append(this._titleHeader)
+            this._titleHeader.innerHTML = "Измените информацию о визите";
 
-            this.editVisitForm = new Form("editVisit", visit, id, data);
-            this.modalBody.append(this.editVisitForm);
+            this._editVisitForm = new Form("editVisit", visit, id, data);
+            this._modalBody.append(this._editVisitForm);
         }
 
-
-        document.body.prepend(this.modalContainer);
-        this.modalContainer.classList.add("active")
+        document.body.prepend(this._modalContainer);
+        this._modalContainer.classList.add("active")
     }
-    // onBackgroundClick(evt) {
-    //     let clickedItem = evt.target;
-    //     if (clickedItem === this.modalContent) {
-    //         this.removeModal();
-    //         this.modalContainer.removeEventListener("click",this.onBackgroundClickBound);
-    //     }
 
-    // }
-    removeModal() {
-        this.modalContainer.remove();
-        this.modalButtonClose.removeEventListener("click", this.removeModalBound);
+    _removeModal() {
+        this._modalContainer.remove();
+        this._overlay.classList.remove("active");
+        this._modalButtonClose.removeEventListener("click", this._removeModalBind);
+    }
+
+    _onBackgroundClick() {
+        this._body = document.body.addEventListener("keyup", function (e) {
+            let key = e.keyCode;
+            if (key == 27) { 
+                const overlay = document.querySelector(".overlay");
+                const modalContainer = document.querySelector(".modal-dialog");
+
+                modalContainer.remove();
+                overlay.classList.remove("active");
+            };
+        }, false);
+
+        this._overlay.addEventListener("click", function() {
+            const overlay = document.querySelector(".overlay");
+            const modalContainer = document.querySelector(".modal-dialog");
+
+            modalContainer.remove();
+            overlay.classList.remove("active");
+        });
     }
 }
