@@ -117,79 +117,102 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
-var bundleURL = null;
+})({"src/js/classes.js":[function(require,module,exports) {
+"use strict";
 
-function getBundleURLCached() {
-  if (!bundleURL) {
-    bundleURL = getBundleURL();
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Input = exports.Button = exports.Textarea = void 0;
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Textarea = function Textarea(typeOfTextarea) {
+  _classCallCheck(this, Textarea);
+
+  this.e = document.createElement("textarea");
+
+  if (typeOfTextarea === "shortDiscriptionsOfVisit") {
+    this.e.classList = "textarea";
+    this.e.setAttribute("name", "shortDiscriptionsOfVisit");
+    this.e.setAttribute("placeholder", "Краткое описание визита");
+    return this.e;
   }
 
-  return bundleURL;
-}
+  if (typeOfTextarea === "pastDiseases") {
+    this.e.classList = "textarea";
+    this.e.setAttribute("name", "pastDiseases");
+    this.e.setAttribute("placeholder", "Перенесенные заболевания сердечно-сосудистой системы");
+    this.e.setAttribute("required", "required");
+    return this.e;
+  }
+};
 
-function getBundleURL() {
-  // Attempt to find the URL of the current script and use that as the base URL
-  try {
-    throw new Error();
-  } catch (err) {
-    var matches = ('' + err.stack).match(/(https?|file|ftp|chrome-extension|moz-extension):\/\/[^)\n]+/g);
+exports.Textarea = Textarea;
 
-    if (matches) {
-      return getBaseURL(matches[0]);
-    }
+var Button = function Button(typeOfButton) {
+  _classCallCheck(this, Button);
+
+  this.e = document.createElement("button");
+
+  if (typeOfButton === "login") {
+    this.e.classList = "login-btn";
+    this.e.setAttribute("type", "submit");
+    this.e.innerText = "Войти";
+    return this.e;
   }
 
-  return '/';
-}
-
-function getBaseURL(url) {
-  return ('' + url).replace(/^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)\/[^/]+$/, '$1') + '/';
-}
-
-exports.getBundleURL = getBundleURLCached;
-exports.getBaseURL = getBaseURL;
-},{}],"node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
-var bundle = require('./bundle-url');
-
-function updateLink(link) {
-  var newLink = link.cloneNode();
-
-  newLink.onload = function () {
-    link.remove();
-  };
-
-  newLink.href = link.href.split('?')[0] + '?' + Date.now();
-  link.parentNode.insertBefore(newLink, link.nextSibling);
-}
-
-var cssTimeout = null;
-
-function reloadCSS() {
-  if (cssTimeout) {
-    return;
+  if (typeOfButton === "createVisitModalBtn") {
+    this.e.classList.add = "create-visit-modal-btn";
+    this.e.setAttribute("type", "submit");
+    this.e.innerText = "Создать";
+    return this.e;
   }
 
-  cssTimeout = setTimeout(function () {
-    var links = document.querySelectorAll('link[rel="stylesheet"]');
+  if (typeOfButton === "editVisitModalBtn") {
+    this.e.classList = "edit-visit-modal-btn";
+    this.e.setAttribute("type", "submit");
+    this.e.innerText = "Редактировать";
+    return this.e;
+  }
+};
 
-    for (var i = 0; i < links.length; i++) {
-      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
-        updateLink(links[i]);
-      }
-    }
+exports.Button = Button;
 
-    cssTimeout = null;
-  }, 50);
-}
+var Input = function Input(typeOfInput) {
+  _classCallCheck(this, Input);
 
-module.exports = reloadCSS;
-},{"./bundle-url":"node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"src/css/main.scss":[function(require,module,exports) {
-var reloadCSS = require('_css_loader');
+  this.e = document.createElement('input');
 
-module.hot.dispose(reloadCSS);
-module.hot.accept(reloadCSS);
-},{"./../img/background_065.jpeg":[["background_065.a192476c.jpeg","src/img/background_065.jpeg"],"src/img/background_065.jpeg"],"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+  if (typeOfInput === "email") {
+    this.e.setAttribute('type', 'text');
+    this.e.setAttribute('name', 'email');
+    this.e.setAttribute('id', 'email');
+    this.e.classList = 'email-input';
+    this.e.setAttribute("required", "required");
+    this.inputLabel = document.createElement("label");
+    this.inputLabel.classList = "input-label";
+    this.inputLabel.innerText = "E-mail";
+    this.inputLabel.append(this.e);
+    return this.inputLabel;
+  }
+
+  if (typeOfInput === "password") {
+    this.e.setAttribute('type', 'password');
+    this.e.setAttribute('name', 'password');
+    this.e.setAttribute('id', 'password');
+    this.e.classList.add('password-input');
+    this.e.setAttribute("required", "required");
+    this.inputLabel = document.createElement("label");
+    this.inputLabel.classList.add("input-label");
+    this.inputLabel.innerText = "Password";
+    this.inputLabel.append(this.e);
+    return this.inputLabel;
+  }
+};
+
+exports.Input = Input;
+},{}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -217,7 +240,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60763" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54265" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -393,5 +416,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["node_modules/parcel-bundler/src/builtins/hmr-runtime.js"], null)
-//# sourceMappingURL=/main.0d3aeac4.js.map
+},{}]},{},["node_modules/parcel-bundler/src/builtins/hmr-runtime.js","src/js/classes.js"], null)
+//# sourceMappingURL=/classes.bf43ef76.js.map

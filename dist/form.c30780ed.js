@@ -117,79 +117,209 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
-var bundleURL = null;
+})({"src/js/classes.js":[function(require,module,exports) {
+"use strict";
 
-function getBundleURLCached() {
-  if (!bundleURL) {
-    bundleURL = getBundleURL();
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Input = exports.Button = exports.Textarea = void 0;
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Textarea = function Textarea(typeOfTextarea) {
+  _classCallCheck(this, Textarea);
+
+  this.e = document.createElement("textarea");
+
+  if (typeOfTextarea === "shortDiscriptionsOfVisit") {
+    this.e.classList = "textarea";
+    this.e.setAttribute("name", "shortDiscriptionsOfVisit");
+    this.e.setAttribute("placeholder", "Краткое описание визита");
+    return this.e;
   }
 
-  return bundleURL;
-}
+  if (typeOfTextarea === "pastDiseases") {
+    this.e.classList = "textarea";
+    this.e.setAttribute("name", "pastDiseases");
+    this.e.setAttribute("placeholder", "Перенесенные заболевания сердечно-сосудистой системы");
+    this.e.setAttribute("required", "required");
+    return this.e;
+  }
+};
 
-function getBundleURL() {
-  // Attempt to find the URL of the current script and use that as the base URL
-  try {
-    throw new Error();
-  } catch (err) {
-    var matches = ('' + err.stack).match(/(https?|file|ftp|chrome-extension|moz-extension):\/\/[^)\n]+/g);
+exports.Textarea = Textarea;
 
-    if (matches) {
-      return getBaseURL(matches[0]);
+var Button = function Button(typeOfButton) {
+  _classCallCheck(this, Button);
+
+  this.e = document.createElement("button");
+
+  if (typeOfButton === "login") {
+    this.e.classList = "login-btn";
+    this.e.setAttribute("type", "submit");
+    this.e.innerText = "Войти";
+    return this.e;
+  }
+
+  if (typeOfButton === "createVisitModalBtn") {
+    this.e.classList.add = "create-visit-modal-btn";
+    this.e.setAttribute("type", "submit");
+    this.e.innerText = "Создать";
+    return this.e;
+  }
+
+  if (typeOfButton === "editVisitModalBtn") {
+    this.e.classList = "edit-visit-modal-btn";
+    this.e.setAttribute("type", "submit");
+    this.e.innerText = "Редактировать";
+    return this.e;
+  }
+};
+
+exports.Button = Button;
+
+var Input = function Input(typeOfInput) {
+  _classCallCheck(this, Input);
+
+  this.e = document.createElement('input');
+
+  if (typeOfInput === "email") {
+    this.e.setAttribute('type', 'text');
+    this.e.setAttribute('name', 'email');
+    this.e.setAttribute('id', 'email');
+    this.e.classList = 'email-input';
+    this.e.setAttribute("required", "required");
+    this.inputLabel = document.createElement("label");
+    this.inputLabel.classList = "input-label";
+    this.inputLabel.innerText = "E-mail";
+    this.inputLabel.append(this.e);
+    return this.inputLabel;
+  }
+
+  if (typeOfInput === "password") {
+    this.e.setAttribute('type', 'password');
+    this.e.setAttribute('name', 'password');
+    this.e.setAttribute('id', 'password');
+    this.e.classList.add('password-input');
+    this.e.setAttribute("required", "required");
+    this.inputLabel = document.createElement("label");
+    this.inputLabel.classList.add("input-label");
+    this.inputLabel.innerText = "Password";
+    this.inputLabel.append(this.e);
+    return this.inputLabel;
+  }
+};
+
+exports.Input = Input;
+},{}],"src/js/request.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Request = /*#__PURE__*/function () {
+  function Request(typeOfRequest, data, id) {
+    _classCallCheck(this, Request);
+
+    if (typeOfRequest === "login") {
+      return this.login(data);
     }
   }
 
-  return '/';
-}
-
-function getBaseURL(url) {
-  return ('' + url).replace(/^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)\/[^/]+$/, '$1') + '/';
-}
-
-exports.getBundleURL = getBundleURLCached;
-exports.getBaseURL = getBaseURL;
-},{}],"node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
-var bundle = require('./bundle-url');
-
-function updateLink(link) {
-  var newLink = link.cloneNode();
-
-  newLink.onload = function () {
-    link.remove();
-  };
-
-  newLink.href = link.href.split('?')[0] + '?' + Date.now();
-  link.parentNode.insertBefore(newLink, link.nextSibling);
-}
-
-var cssTimeout = null;
-
-function reloadCSS() {
-  if (cssTimeout) {
-    return;
-  }
-
-  cssTimeout = setTimeout(function () {
-    var links = document.querySelectorAll('link[rel="stylesheet"]');
-
-    for (var i = 0; i < links.length; i++) {
-      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
-        updateLink(links[i]);
-      }
+  _createClass(Request, [{
+    key: "login",
+    value: function login(data) {
+      return fetch('https://ajax.test-danit.com/api/v2/cards/login', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json; charset=utf-8"
+        },
+        body: JSON.stringify({
+          email: document.querySelector("#email").value,
+          password: document.querySelector("#password").value
+        })
+      });
     }
+  }]);
 
-    cssTimeout = null;
-  }, 50);
-}
+  return Request;
+}();
 
-module.exports = reloadCSS;
-},{"./bundle-url":"node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"src/css/main.scss":[function(require,module,exports) {
-var reloadCSS = require('_css_loader');
+exports.default = Request;
+},{}],"src/js/form.js":[function(require,module,exports) {
+"use strict";
 
-module.hot.dispose(reloadCSS);
-module.hot.accept(reloadCSS);
-},{"./../img/background_065.jpeg":[["background_065.a192476c.jpeg","src/img/background_065.jpeg"],"src/img/background_065.jpeg"],"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _classes = require("./classes.js");
+
+var _request = _interopRequireDefault(require("./request.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Form = function Form(typeOfForm, visit, id, data) {
+  _classCallCheck(this, Form);
+
+  this.visit = visit;
+  this.id = id;
+  this.data = data;
+  this.e = document.createElement("form");
+
+  if (typeOfForm === "login") {
+    this.e.classList = "login-form";
+    this.mailInput = new _classes.Input("email");
+    this.e.append(this.mailInput);
+    this.passwordInput = new _classes.Input("password");
+    this.e.append(this.passwordInput);
+    this.loginButton = new _classes.Button("login");
+    this.e.append(this.loginButton);
+    this.errorNote = document.createElement("p");
+    this.errorNote.className = "error-note";
+    this.errorNote.innerText = "Wrong e-mail or password.";
+    this.errorNote.style.visibility = 'hidden';
+    this.errorNote.style.opacity = "0";
+    this.e.append(this.errorNote);
+    this.e.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var formData = new FormData(this);
+      formData = Object.fromEntries(formData);
+      new _request.default("login", formData, null).then(function (response) {
+        return response.json();
+      }).then(function (data) {
+        if (data.status === "Success") {
+          sessionStorage.setItem("token", data.token);
+        } else if (data.status === "Error") {
+          var errorNote = document.querySelector(".error-note");
+          errorNote.style.visibility = 'visible';
+          errorNote.style.opacity = "1";
+        }
+
+        return data;
+      }).catch(function (error) {
+        return console.error(error);
+      });
+      this.reset();
+    });
+    return this.e;
+  }
+};
+
+exports.default = Form;
+},{"./classes.js":"src/js/classes.js","./request.js":"src/js/request.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -217,7 +347,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60763" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54265" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -393,5 +523,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["node_modules/parcel-bundler/src/builtins/hmr-runtime.js"], null)
-//# sourceMappingURL=/main.0d3aeac4.js.map
+},{}]},{},["node_modules/parcel-bundler/src/builtins/hmr-runtime.js","src/js/form.js"], null)
+//# sourceMappingURL=/form.c30780ed.js.map
