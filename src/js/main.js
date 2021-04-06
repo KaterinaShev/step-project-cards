@@ -5,6 +5,10 @@ import Filter from "./filter.js";
 import {Button, Input, Select, Textarea, InputFieldTitle} from "./classes.js";
 
 
+// email: katya@katya.com
+// password: katyakatya
+
+
 function createContent() {
     const header = document.createElement("header");
     header.className = "header"
